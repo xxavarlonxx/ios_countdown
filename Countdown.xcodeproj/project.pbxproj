@@ -13,6 +13,9 @@
 		65445C0326BAFADD008222A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65445C0226BAFADD008222A0 /* Preview Assets.xcassets */; };
 		65445C0E26BAFADD008222A0 /* CountdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C0D26BAFADD008222A0 /* CountdownTests.swift */; };
 		65445C1926BAFADD008222A0 /* CountdownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C1826BAFADD008222A0 /* CountdownUITests.swift */; };
+		65445C2826BAFB42008222A0 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C2726BAFB42008222A0 /* Event.swift */; };
+		65445C2B26BAFD84008222A0 /* EventCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C2A26BAFD84008222A0 /* EventCardView.swift */; };
+		65445C2D26BB2EAF008222A0 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C2C26BB2EAF008222A0 /* EventListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		65445C1426BAFADD008222A0 /* CountdownUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountdownUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65445C1826BAFADD008222A0 /* CountdownUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownUITests.swift; sourceTree = "<group>"; };
 		65445C1A26BAFADD008222A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65445C2726BAFB42008222A0 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		65445C2A26BAFD84008222A0 /* EventCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardView.swift; sourceTree = "<group>"; };
+		65445C2C26BB2EAF008222A0 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,8 +101,9 @@
 		65445BFA26BAFADB008222A0 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				65445C2926BAFCCC008222A0 /* Views */,
+				65445C2626BAFAEA008222A0 /* Models */,
 				65445BFB26BAFADB008222A0 /* CountdownApp.swift */,
-				65445BFD26BAFADB008222A0 /* ContentView.swift */,
 				65445BFF26BAFADD008222A0 /* Assets.xcassets */,
 				65445C0426BAFADD008222A0 /* Info.plist */,
 				65445C0126BAFADD008222A0 /* Preview Content */,
@@ -128,6 +135,24 @@
 				65445C1A26BAFADD008222A0 /* Info.plist */,
 			);
 			path = CountdownUITests;
+			sourceTree = "<group>";
+		};
+		65445C2626BAFAEA008222A0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				65445C2726BAFB42008222A0 /* Event.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		65445C2926BAFCCC008222A0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				65445BFD26BAFADB008222A0 /* ContentView.swift */,
+				65445C2A26BAFD84008222A0 /* EventCardView.swift */,
+				65445C2C26BB2EAF008222A0 /* EventListView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +284,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65445C2D26BB2EAF008222A0 /* EventListView.swift in Sources */,
 				65445BFE26BAFADB008222A0 /* ContentView.swift in Sources */,
+				65445C2826BAFB42008222A0 /* Event.swift in Sources */,
+				65445C2B26BAFD84008222A0 /* EventCardView.swift in Sources */,
 				65445BFC26BAFADB008222A0 /* CountdownApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
