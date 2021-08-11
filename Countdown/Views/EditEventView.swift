@@ -55,6 +55,7 @@ struct EditEventView: View {
             )
         }
         .accentColor(Theme.primaryColorDarker)
+        .onAppear(perform: vm.onAppear)
     }
     
     func onDismiss(_ save: Bool){
@@ -75,14 +76,7 @@ extension EditEventView {
         
         private var dataStorage: EventDataStorage
         
-        private var event: EventMO {
-            didSet {
-                title = event.title ?? ""
-                targetDate = event.targetDate
-                targetTime = event.targetTime
-                selectedColor = event.color ?? EventColor.blue.rawValue
-            }
-        }
+        private var event: EventMO
         
         init(dataStorage: EventDataStorage = CDEventDataStorage.shared, event: EventMO) {
             self.event = event
@@ -95,6 +89,13 @@ extension EditEventView {
             event.color = selectedColor
             
             dataStorage.updateEvent(event: event)
+        }
+        
+        func onAppear(){
+            title = event.title ?? ""
+            targetDate = event.targetDate
+            targetTime = event.targetTime
+            selectedColor = event.color ?? EventColor.blue.rawValue
         }
     }
 }

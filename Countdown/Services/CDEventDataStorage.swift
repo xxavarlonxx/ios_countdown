@@ -37,7 +37,7 @@ class CDEventDataStorage: EventDataStorage  {
     
     private func fetchEvents(){
         let request: NSFetchRequest<EventMO> = EventMO.fetchRequest()
-        request.sortDescriptors = [NSSortDescriptor(key: "targetDateTime", ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: "targetDateTime", ascending: true)]
         let events: [EventMO]? = try? container.viewContext.fetch(request)
         guard let fetchedEvents = events else {return}
         self.events.send(fetchedEvents)

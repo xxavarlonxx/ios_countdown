@@ -16,7 +16,7 @@ struct EventListView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false){
             LazyVStack(spacing: 12){
-                ForEach(vm.events, id: \.id){
+                ForEach(vm.events, id: \.self){
                     EventCardView(event: $0, onEdit: onEdit, onDelete: onDelete)
                 }
             }

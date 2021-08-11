@@ -10,6 +10,7 @@ import SwiftUI
 
 
 extension EventMO {
+    
     var targetDate: Date {
         let dateComponent = Calendar.current.dateComponents([.year, .month, .day], from: targetDateTime ?? Date())
         var newComponent = DateComponents()
