@@ -7,15 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650278F226C00C1800F084C5 /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650278F126C00C1800F084C5 /* EditEventView.swift */; };
+		650278F726C18BDB00F084C5 /* Countdown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 650278F526C18BDB00F084C5 /* Countdown.xcdatamodeld */; };
+		650278F926C18F0A00F084C5 /* EventColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650278F826C18F0A00F084C5 /* EventColor.swift */; };
+		650278FC26C18F6600F084C5 /* Calendar+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650278FB26C18F6600F084C5 /* Calendar+Extensions.swift */; };
+		6502790E26C4399C00F084C5 /* CDEventDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6502790D26C4399C00F084C5 /* CDEventDataStorage.swift */; };
 		65445BFC26BAFADB008222A0 /* CountdownApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445BFB26BAFADB008222A0 /* CountdownApp.swift */; };
-		65445BFE26BAFADB008222A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445BFD26BAFADB008222A0 /* ContentView.swift */; };
+		65445BFE26BAFADB008222A0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445BFD26BAFADB008222A0 /* MainView.swift */; };
 		65445C0026BAFADD008222A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65445BFF26BAFADD008222A0 /* Assets.xcassets */; };
 		65445C0326BAFADD008222A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65445C0226BAFADD008222A0 /* Preview Assets.xcassets */; };
 		65445C0E26BAFADD008222A0 /* CountdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C0D26BAFADD008222A0 /* CountdownTests.swift */; };
 		65445C1926BAFADD008222A0 /* CountdownUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C1826BAFADD008222A0 /* CountdownUITests.swift */; };
-		65445C2826BAFB42008222A0 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C2726BAFB42008222A0 /* Event.swift */; };
 		65445C2B26BAFD84008222A0 /* EventCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C2A26BAFD84008222A0 /* EventCardView.swift */; };
 		65445C2D26BB2EAF008222A0 /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C2C26BB2EAF008222A0 /* EventListView.swift */; };
+		65445C2F26BC4ACC008222A0 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65445C2E26BC4ACC008222A0 /* AddEventView.swift */; };
+		6567974D26C4741800DA8A5A /* EventMO+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6567974C26C4741800DA8A5A /* EventMO+Extension.swift */; };
+		6567974E26C4741800DA8A5A /* EventMO+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6567974C26C4741800DA8A5A /* EventMO+Extension.swift */; };
+		6567974F26C4741800DA8A5A /* EventMO+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6567974C26C4741800DA8A5A /* EventMO+Extension.swift */; };
+		657B1D1E26BFE56E00CDB3BB /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657B1D1D26BFE56E00CDB3BB /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,9 +45,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		650278F126C00C1800F084C5 /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
+		650278F626C18BDB00F084C5 /* Countdown.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Countdown.xcdatamodel; sourceTree = "<group>"; };
+		650278F826C18F0A00F084C5 /* EventColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventColor.swift; sourceTree = "<group>"; };
+		650278FB26C18F6600F084C5 /* Calendar+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+Extensions.swift"; sourceTree = "<group>"; };
+		6502790D26C4399C00F084C5 /* CDEventDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDEventDataStorage.swift; sourceTree = "<group>"; };
 		65445BF826BAFADB008222A0 /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65445BFB26BAFADB008222A0 /* CountdownApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownApp.swift; sourceTree = "<group>"; };
-		65445BFD26BAFADB008222A0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		65445BFD26BAFADB008222A0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		65445BFF26BAFADD008222A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65445C0226BAFADD008222A0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		65445C0426BAFADD008222A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -48,9 +62,11 @@
 		65445C1426BAFADD008222A0 /* CountdownUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountdownUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65445C1826BAFADD008222A0 /* CountdownUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownUITests.swift; sourceTree = "<group>"; };
 		65445C1A26BAFADD008222A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65445C2726BAFB42008222A0 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		65445C2A26BAFD84008222A0 /* EventCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCardView.swift; sourceTree = "<group>"; };
 		65445C2C26BB2EAF008222A0 /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
+		65445C2E26BC4ACC008222A0 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
+		6567974C26C4741800DA8A5A /* EventMO+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EventMO+Extension.swift"; sourceTree = "<group>"; };
+		657B1D1D26BFE56E00CDB3BB /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +94,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		650278FA26C18F5100F084C5 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				65445BFB26BAFADB008222A0 /* CountdownApp.swift */,
+				65445BFF26BAFADD008222A0 /* Assets.xcassets */,
+				657B1D1D26BFE56E00CDB3BB /* Theme.swift */,
+				650278FB26C18F6600F084C5 /* Calendar+Extensions.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
+		6502790C26C4397F00F084C5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6502790D26C4399C00F084C5 /* CDEventDataStorage.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		65445BEF26BAFADB008222A0 = {
 			isa = PBXGroup;
 			children = (
@@ -101,11 +136,11 @@
 		65445BFA26BAFADB008222A0 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				65445C0426BAFADD008222A0 /* Info.plist */,
+				6502790C26C4397F00F084C5 /* Services */,
+				650278FA26C18F5100F084C5 /* Other */,
 				65445C2926BAFCCC008222A0 /* Views */,
 				65445C2626BAFAEA008222A0 /* Models */,
-				65445BFB26BAFADB008222A0 /* CountdownApp.swift */,
-				65445BFF26BAFADD008222A0 /* Assets.xcassets */,
-				65445C0426BAFADD008222A0 /* Info.plist */,
 				65445C0126BAFADD008222A0 /* Preview Content */,
 			);
 			path = Countdown;
@@ -140,7 +175,9 @@
 		65445C2626BAFAEA008222A0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				65445C2726BAFB42008222A0 /* Event.swift */,
+				6567974C26C4741800DA8A5A /* EventMO+Extension.swift */,
+				650278F526C18BDB00F084C5 /* Countdown.xcdatamodeld */,
+				650278F826C18F0A00F084C5 /* EventColor.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -148,9 +185,11 @@
 		65445C2926BAFCCC008222A0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				65445BFD26BAFADB008222A0 /* ContentView.swift */,
+				65445BFD26BAFADB008222A0 /* MainView.swift */,
 				65445C2A26BAFD84008222A0 /* EventCardView.swift */,
 				65445C2C26BB2EAF008222A0 /* EventListView.swift */,
+				65445C2E26BC4ACC008222A0 /* AddEventView.swift */,
+				650278F126C00C1800F084C5 /* EditEventView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -285,10 +324,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				65445C2D26BB2EAF008222A0 /* EventListView.swift in Sources */,
-				65445BFE26BAFADB008222A0 /* ContentView.swift in Sources */,
-				65445C2826BAFB42008222A0 /* Event.swift in Sources */,
+				657B1D1E26BFE56E00CDB3BB /* Theme.swift in Sources */,
+				6502790E26C4399C00F084C5 /* CDEventDataStorage.swift in Sources */,
+				65445BFE26BAFADB008222A0 /* MainView.swift in Sources */,
+				6567974D26C4741800DA8A5A /* EventMO+Extension.swift in Sources */,
+				65445C2F26BC4ACC008222A0 /* AddEventView.swift in Sources */,
+				650278F926C18F0A00F084C5 /* EventColor.swift in Sources */,
+				650278F226C00C1800F084C5 /* EditEventView.swift in Sources */,
+				650278FC26C18F6600F084C5 /* Calendar+Extensions.swift in Sources */,
 				65445C2B26BAFD84008222A0 /* EventCardView.swift in Sources */,
 				65445BFC26BAFADB008222A0 /* CountdownApp.swift in Sources */,
+				650278F726C18BDB00F084C5 /* Countdown.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6567974E26C4741800DA8A5A /* EventMO+Extension.swift in Sources */,
 				65445C0E26BAFADD008222A0 /* CountdownTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6567974F26C4741800DA8A5A /* EventMO+Extension.swift in Sources */,
 				65445C1926BAFADD008222A0 /* CountdownUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -608,6 +656,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		650278F526C18BDB00F084C5 /* Countdown.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				650278F626C18BDB00F084C5 /* Countdown.xcdatamodel */,
+			);
+			currentVersion = 650278F626C18BDB00F084C5 /* Countdown.xcdatamodel */;
+			path = Countdown.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 65445BF026BAFADB008222A0 /* Project object */;
 }

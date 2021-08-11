@@ -7,25 +7,61 @@
 
 import SwiftUI
 import UIKit
+import Combine
 
 struct EventListView: View {
-    var events: [Event]
+    
+    @StateObject var vm: ViewModel = ViewModel()
     
     var body: some View {
-        ScrollView{
+        ScrollView(.vertical, showsIndicators: false){
             LazyVStack(spacing: 12){
-                ForEach(events, id: \.id){ event in
-                    EventCardView(event: event)
+                ForEach(vm.events, id: \.id){
+                    EventCardView(event: $0, onEdit: onEdit, onDelete: onDelete)
                 }
             }
         }
         .padding(.horizontal, 8)
         .padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+        .onAppear(perform: vm.onAppear)
+        .sheet(item: $vm.eventEditSelection){ item in
+            EditEventView(event: item)
+        }
+        
+    }
+    
+    func onEdit(event: EventMO){
+        vm.eventEditSelection = event
+    }
+    
+    func onDelete(event: EventMO){
+        vm.eventDeleteSelection = event
     }
 }
 
 struct EventListView_Previews: PreviewProvider {
     static var previews: some View {
-        EventListView(events: Event.dummyEventList)
+        EventListView()
+    }
+}
+
+extension EventListView {
+    final class ViewModel: ObservableObject {
+        @Published var events: [EventMO] = []
+        @Published var eventEditSelection: EventMO?
+        @Published var eventDeleteSelection: EventMO?
+        
+        private var dataStorage: EventDataStorage
+        private var cancellable: AnyCancellable?
+        
+        init(dataStorage: EventDataStorage = CDEventDataStorage.shared) {
+            self.dataStorage = dataStorage
+        }
+        
+        func onAppear(){
+            cancellable = self.dataStorage.getAllEvents().sink { [weak self] events in
+                self?.events = events
+            }
+        }
     }
 }
