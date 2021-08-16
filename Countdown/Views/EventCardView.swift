@@ -13,7 +13,7 @@ struct EventCardView: View {
     var onEdit: ((EventMO) -> ())?
     var onDelete: ((EventMO) -> ())?
     
-    init(event: EventMO = .init(), onEdit:((EventMO) -> ())?, onDelete:((EventMO) -> ())?) {
+    init(event: EventMO = .init(), onEdit:((EventMO) -> ())? = nil, onDelete:((EventMO) -> ())? = nil) {
         let vm = EventCardViewModel(event: event)
         _viewModel = StateObject(wrappedValue: vm)
         self.onEdit = onEdit
@@ -115,7 +115,7 @@ struct EventCardView: View {
 
 struct EventCard_Previews: PreviewProvider {
     static var previews: some View {
-        EventCardView(event: .init(), onEdit: nil, onDelete: nil)
+        EventCardView()
     }
 }
 

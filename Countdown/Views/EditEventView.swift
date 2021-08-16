@@ -16,7 +16,7 @@ struct EditEventView: View {
     
     @StateObject var vm: ViewModel
     
-    init(event: EventMO) {
+    init(event: EventMO = .init()) {
         let vm = ViewModel(event: event)
         _vm = StateObject(wrappedValue: vm)
     }
@@ -104,6 +104,6 @@ extension EditEventView {
 
 struct EditEventView_Previews: PreviewProvider {
     static var previews: some View {
-        EditEventView(event: .init())
+        EditEventView()
     }
 }

@@ -13,10 +13,12 @@ import CoreData
 protocol EventDataStorage {
     func getAllEvents() -> AnyPublisher<[EventMO], Never>
     func addEvent(title: String, targetDateTime:Date, colorName: String)
+    func deleteEvent(event: EventMO)
     func updateEvent(event: EventMO)
 }
 
 class CDEventDataStorage: EventDataStorage  {
+    
     private var events = CurrentValueSubject<[EventMO],Never>([])
     
     private lazy var container: NSPersistentContainer = {
@@ -62,12 +64,18 @@ class CDEventDataStorage: EventDataStorage  {
         fetchEvents()
     }
     
+    func deleteEvent(event: EventMO) {
+        container.viewContext.delete(event)
+        saveContext()
+        fetchEvents()
+    }
     
     private func saveContext(){
         do {
             if container.viewContext.hasChanges {
                 try container.viewContext.save()
             }
+            
         } catch  {
             print(error.localizedDescription)
         }
