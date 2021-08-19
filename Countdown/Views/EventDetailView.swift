@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct EventDetailView: View {
     
@@ -29,15 +30,21 @@ struct EventDetailView: View {
                         .foregroundColor(.white)
                     Spacer()
                     HStack{
-                        DateOutputView(value: $vm.year, unity: "Years")
-                        DateOutputView(value: $vm.month, unity: "Months")
-                        DateOutputView(value: $vm.day, unity: "Days")
-                        
+                        ForEach(vm.timerItems.indices, id: \.self) { index in
+                            if index < 3 {
+                                TimerItemView(timerItem: vm.timerItems[index])
+                            }
+                        }
                     }
-                    HStack{
-                        DateOutputView(value: $vm.hour, unity: "Hours")
-                        DateOutputView(value: $vm.minute, unity: "Minutes")
-                        DateOutputView(value: $vm.second, unity: "Seconds")
+                    
+                    if vm.timerItems.count > 3 {
+                        HStack{
+                            ForEach(vm.timerItems.indices, id: \.self) { index in
+                                if index > 2 {
+                                    TimerItemView(timerItem: vm.timerItems[index])
+                                }
+                            }
+                        }
                     }
                     
                     Spacer()
@@ -49,8 +56,6 @@ struct EventDetailView: View {
                 })
             }
         }
-        
-        
     }
 }
 
@@ -63,32 +68,26 @@ struct EventDetailView_Previews: PreviewProvider {
 extension EventDetailView {
     final class ViewModel: ObservableObject{
         @Published var backgroundColor: Color
-        @Published var year: Int = 0
-        @Published var month: Int = 0
-        @Published var day: Int = 0
-        @Published var hour: Int = 0
-        @Published var minute: Int = 0
-        @Published var second: Int = 0
         @Published var eventName: String = ""
+        @Published var timerItems: [TimerItem] = []
         
         private var event: EventMO
+        private var timerService: TimerService
+        private var cancellable: AnyCancellable?
         
-        init(event: EventMO) {
+        init(timerService: TimerService = CountdownTimerService.init(), event: EventMO) {
+            self.timerService = timerService
             self.event = event
             self.backgroundColor = event.eventColor.color
             self.eventName = event.title ?? ""
+            cancellable = timerService.getTimerItems().sink { timerItems in
+                self.timerItems = timerItems
+            }
         }
         
         func updateDeltaTime(currentDateTime: Date){
-            guard let eventDateTime = event.targetDateTime else {return}
-            let calendar = Calendar.current
-            let deltaComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: currentDateTime, to: eventDateTime )
-            self.year = deltaComponents.year!
-            self.month =  deltaComponents.month!
-            self.day = deltaComponents.day!
-            self.hour = deltaComponents.hour!
-            self.minute = deltaComponents.minute!
-            self.second = deltaComponents.second!
+            guard let targetDateTime = event.targetDateTime else {return}
+            timerService.updateDeltaTimeFrom(currentDateTime, to: targetDateTime)
         }
     }
 }

@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-struct DateOutputView: View {
+struct TimerItemView: View {
     
-    @Binding var value: Int
-    var unity: String = ""
+//    @Binding
+//    var value: Int
+//    var unity: String = ""
+    var timerItem: TimerItem
     
     var body: some View {
         ZStack{
@@ -19,11 +21,11 @@ struct DateOutputView: View {
                 .frame(width: 100, height: 100)
                 .foregroundColor(Color.black.opacity(0.5))
             VStack(){
-                Text("\(value)")
+                Text("\(timerItem.value)")
                     .font(.title)
                     .bold()
                     .foregroundColor(Theme.textColor)
-                Text(unity)
+                Text(timerItem.unity)
                     .font(.subheadline)
                     .foregroundColor(Theme.textColor)
                 
@@ -34,6 +36,6 @@ struct DateOutputView: View {
 
 struct DateOutputView_Previews: PreviewProvider {
     static var previews: some View {
-        DateOutputView(value: .constant(1), unity: "Years")
+        TimerItemView(timerItem: TimerItem.dummyTimerItem())
     }
 }

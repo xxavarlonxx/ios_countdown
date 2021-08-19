@@ -8,7 +8,11 @@
 import Foundation
 
 
-struct DateOutput: Hashable {
+struct TimerItem: Hashable {
     var value: Int
     var unity: String
+    
+    static func dummyTimerItem() -> TimerItem {
+        return TimerItem(value: 1, unity: "Years")
+    }
 }
