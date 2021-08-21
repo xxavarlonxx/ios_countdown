@@ -12,6 +12,12 @@ struct CountdownApp: App {
     
     @Environment(\.scenePhase) var scenePhase
     
+    init() {
+        let storage = CDEventDataStorage.shared
+        let nextWeek = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
+        storage.addEvent(title: "Test", targetDateTime: nextWeek, colorName: EventColor.purple.rawValue)
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainView()

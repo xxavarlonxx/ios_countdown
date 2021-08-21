@@ -39,8 +39,7 @@ struct MainView: View {
                 
             }.navigationBarTitle("Next Events", displayMode: .large)
             
-            
-        }
+        }.accentColor(.white)
         
         
     }

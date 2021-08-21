@@ -6,21 +6,25 @@
 //
 
 import SwiftUI
+import SwipeCell
 
 struct EventCardView: View {
     
     @StateObject var viewModel: EventCardViewModel
-    var onEdit: ((EventMO) -> ())?
-    var onDelete: ((EventMO) -> ())?
     
-    init(event: EventMO = .init(), onEdit:((EventMO) -> ())? = nil, onDelete:((EventMO) -> ())? = nil) {
+    init(event: EventMO = .init()) {
         let vm = EventCardViewModel(event: event)
         _viewModel = StateObject(wrappedValue: vm)
-        self.onEdit = onEdit
-        self.onDelete = onDelete
     }
     
     var body: some View {
+        let deleteButton = SwipeCellButton(buttonStyle: .image, title: "Delete", systemImage: "trash", view: nil, backgroundColor: Color.red) {
+            print("Delete")
+            viewModel.eventDeleteSelection = viewModel.event
+        }
+        
+        let swipeSlot = SwipeCellSlot(slots: [deleteButton], slotStyle: .destructive, buttonWidth: 80)
+        
         ZStack(){
             Rectangle()
                 .fill()
@@ -39,38 +43,6 @@ struct EventCardView: View {
                         .font(.caption)
                         .foregroundColor(Theme.textColor)
                         .lineLimit(1)
-                    VStack{
-                        HStack(spacing: 10){
-                            Button(action: editTapped){
-                                ZStack{
-                                    Circle()
-                                        .fill()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(Color.black.opacity(0.3))
-                                    Image(systemName: "pencil")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 15)
-                                        .foregroundColor(Theme.textColor)
-                                }
-                            }
-                            
-                            Button(action: deleteTapped){
-                                ZStack{
-                                    Circle()
-                                        .fill()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(Color.black.opacity(0.3))
-                                    Image(systemName: "trash")
-                                        .resizable()
-                                        .aspectRatio(contentMode:  .fit)
-                                        .frame(width: 15)
-                                        .foregroundColor(Theme.textColor)
-                                }
-                            }
-                        }
-                    }.padding(.top, 12)
-                    
                 }
                 Spacer()
                 VStack{
@@ -89,27 +61,36 @@ struct EventCardView: View {
                                 .foregroundColor(Theme.textColor)
                             
                         }.multilineTextAlignment(.center)
-                        
-                        
                     }
-                    
-                    
                 }
-                
-                
-                
             }.padding(.horizontal, 16.0)
         }
-    }
-    
-    func editTapped() {
-        guard let onEdit = onEdit else {return}
-        onEdit(viewModel.event)
-    }
-    
-    func deleteTapped() {
-        guard let onDelete = onDelete else {return}
-        onDelete(viewModel.event)
+        .background(NavigationLink(
+            destination: EventDetailView(event: viewModel.event),
+            isActive: $viewModel.isActive){
+            EmptyView()
+        })
+        .onTapGesture {
+            viewModel.isActive = true
+        }
+        .onLongPressGesture{
+            viewModel.eventEditSelection = viewModel.event
+        }
+        .dismissSwipeCellForScrollViewForLazyVStack()
+        .swipeCell(cellPosition: .right, leftSlot: nil, rightSlot: swipeSlot)
+        .sheet(item: $viewModel.eventEditSelection){ item in
+            EditEventView(event: item)
+        }
+        .alert(item: $viewModel.eventDeleteSelection) { item in
+            Alert(title: Text("Delete Event"),
+                  message: Text("Do you really want to delete Event \(item.title!)?"),
+                  primaryButton: .destructive(Text("Yes"), action: {
+                    viewModel.deleteEvent(event: item)
+                  }),
+                  secondaryButton: .cancel(Text("No"), action: {
+                    dismissDestructiveDelayButton()
+                  }))
+        }
     }
 }
 
@@ -124,9 +105,19 @@ extension EventCardView {
     
     final class EventCardViewModel: ObservableObject {
         @Published var event: EventMO
+        @Published var isActive: Bool = false
+        @Published var eventEditSelection: EventMO?
+        @Published var eventDeleteSelection: EventMO?
         
-        init(event:EventMO) {
+        private var dataStorage: EventDataStorage
+        
+        init(dataStorage: EventDataStorage = CDEventDataStorage.shared, event: EventMO) {
+            self.dataStorage = dataStorage
             self.event = event
+        }
+
+        func deleteEvent(event: EventMO){
+            self.dataStorage.deleteEvent(event: event)
         }
     }
 }
