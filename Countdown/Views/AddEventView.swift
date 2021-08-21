@@ -33,7 +33,7 @@ struct AddEventView: View {
                                 Text(color.capitalized)
                             }
                             
-                        }.accentColor(Theme.indigo500)
+                        }.accentColor(appState.theme.indigo500)
                     }
                 }
                 
@@ -48,7 +48,7 @@ struct AddEventView: View {
             .disabled(vm.title.isEmpty)
             )
         }
-        .accentColor(Theme.indigo500)
+        .accentColor(appState.theme.indigo500)
         
     }
     

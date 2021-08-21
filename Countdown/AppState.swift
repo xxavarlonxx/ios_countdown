@@ -11,4 +11,5 @@ import Combine
 
 class AppState: ObservableObject {
     @Published var isLoading: Bool = false
+    @Published var theme: Theme = .init()
 }

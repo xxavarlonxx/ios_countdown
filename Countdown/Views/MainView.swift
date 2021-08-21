@@ -29,7 +29,7 @@ struct MainView: View {
                                 .frame(width: 35, height: 35)
                                 .padding(30)
                                 .foregroundColor(.white)
-                                .background(Theme.indigo500)
+                                .background(appState.theme.indigo500)
                                 .shadow(radius:20)
                             
                         }
