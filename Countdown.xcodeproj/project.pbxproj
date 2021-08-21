@@ -108,13 +108,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		650278FA26C18F5100F084C5 /* Other */ = {
+		650278FA26C18F5100F084C5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				65445BFF26BAFADD008222A0 /* Assets.xcassets */,
-				657B1D1D26BFE56E00CDB3BB /* Theme.swift */,
 			);
-			path = Other;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		6502790C26C4397F00F084C5 /* Services */ = {
@@ -150,10 +149,11 @@
 			isa = PBXGroup;
 			children = (
 				65445BFB26BAFADB008222A0 /* CountdownApp.swift */,
+				657B1D1D26BFE56E00CDB3BB /* Theme.swift */,
 				650016E826D11D0B0019A311 /* AppState.swift */,
 				65445C0426BAFADD008222A0 /* Info.plist */,
 				6502790C26C4397F00F084C5 /* Services */,
-				650278FA26C18F5100F084C5 /* Other */,
+				650278FA26C18F5100F084C5 /* Resources */,
 				65445C2926BAFCCC008222A0 /* Views */,
 				65445C2626BAFAEA008222A0 /* Models */,
 				65445C0126BAFADD008222A0 /* Preview Content */,

@@ -11,6 +11,7 @@ import SwiftUIX
 struct MainView: View {
     
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var theme: Theme
     @StateObject var vm: ViewModel = .init()
 
     
@@ -29,7 +30,7 @@ struct MainView: View {
                                 .frame(width: 35, height: 35)
                                 .padding(30)
                                 .foregroundColor(.white)
-                                .background(appState.theme.indigo500)
+                                .background(theme.primaryColor)
                                 .shadow(radius:20)
                             
                         }
@@ -43,7 +44,7 @@ struct MainView: View {
                 }.navigationBarTitle("Next Events", displayMode: .large)
                 
             }
-            .accentColor(.white)
+            .accentColor(theme.primaryTextColor)
             .disabled(appState.isLoading)
             
             LoadingView(isPresented: $appState.isLoading, text: "Loading")

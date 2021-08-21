@@ -13,6 +13,7 @@ struct AddEventView: View {
     var presentationMode
     
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var theme: Theme
     
     @StateObject var vm: ViewModel = ViewModel()
     
@@ -33,7 +34,7 @@ struct AddEventView: View {
                                 Text(color.capitalized)
                             }
                             
-                        }.accentColor(appState.theme.indigo500)
+                        }.accentColor(theme.primaryColor)
                     }
                 }
                 
@@ -48,7 +49,7 @@ struct AddEventView: View {
             .disabled(vm.title.isEmpty)
             )
         }
-        .accentColor(appState.theme.indigo500)
+        .accentColor(theme.primaryColor)
         
     }
     

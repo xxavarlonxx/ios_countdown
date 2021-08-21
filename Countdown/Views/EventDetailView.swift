@@ -10,7 +10,9 @@ import Combine
 import SwiftUIX
 
 struct EventDetailView: View {
+
     
+    @EnvironmentObject var theme: Theme
     @StateObject var vm: ViewModel
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -28,11 +30,11 @@ struct EventDetailView: View {
                     Text(vm.eventName)
                         .font(.largeTitle)
                         .bold()
-                        .foregroundColor(.white)
+                        .foregroundColor(theme.primaryTextColor)
                     Spacer()
                     if vm.timerItems.count == 0 {
                         ActivityIndicator().animated(true).style(.large)
-                            .tintColor(Color.white)
+                            .tintColor(theme.primaryTextColor)
                     }
                     HStack{
                         ForEach(vm.timerItems.indices, id: \.self) { index in

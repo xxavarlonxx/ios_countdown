@@ -9,9 +9,7 @@ import SwiftUI
 
 struct TimerItemView: View {
     
-//    @Binding
-//    var value: Int
-//    var unity: String = ""
+    @EnvironmentObject var theme: Theme
     var timerItem: TimerItem
     
     var body: some View {
@@ -24,10 +22,10 @@ struct TimerItemView: View {
                 Text("\(timerItem.value)")
                     .font(.title)
                     .bold()
-                    .foregroundColor(Theme.textColor)
+                    .foregroundColor(theme.primaryColor)
                 Text(timerItem.unity)
                     .font(.subheadline)
-                    .foregroundColor(Theme.textColor)
+                    .foregroundColor(theme.primaryColor)
                 
             }.multilineTextAlignment(.center)
         }

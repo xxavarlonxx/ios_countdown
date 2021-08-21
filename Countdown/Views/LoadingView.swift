@@ -10,6 +10,7 @@ import SwiftUIX
 
 struct LoadingView: View {
     
+    @EnvironmentObject var theme: Theme
     @Binding var isPresented: Bool
     var text: String
     
@@ -22,7 +23,7 @@ struct LoadingView: View {
                         .frame(width: proxy.size.width, height: proxy.size.height)
                         .edgesIgnoringSafeArea(.all)
                     VStack(spacing: 10){
-                        ActivityIndicator().animated(true).style(.large).tintColor(.white)
+                        ActivityIndicator().animated(true).style(.large).tintColor(theme.primaryTextColor)
                         Text(text).bold().font(.headline)
                     }
                     .padding()

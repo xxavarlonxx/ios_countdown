@@ -22,6 +22,7 @@ struct CountdownApp: App {
         WindowGroup {
             MainView()
                 .environmentObject(AppState())
+                .environmentObject(Theme())
         }.onChange(of: scenePhase) { phase in
             switch phase{
             case .background:

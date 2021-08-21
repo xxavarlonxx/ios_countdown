@@ -12,6 +12,7 @@ struct EventCardView: View {
     
     @StateObject var viewModel: EventCardViewModel
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var theme: Theme
     
     init(event: EventMO = .init()) {
         let vm = EventCardViewModel(event: event)
@@ -20,7 +21,6 @@ struct EventCardView: View {
     
     var body: some View {
         let deleteButton = SwipeCellButton(buttonStyle: .image, title: "Delete", systemImage: "trash", view: nil, backgroundColor: Color.red) {
-            print("Delete")
             viewModel.eventDeleteSelection = viewModel.event
         }
         
@@ -38,11 +38,11 @@ struct EventCardView: View {
                     Text(viewModel.event.title ?? "")
                         .font(.title)
                         .bold()
-                        .foregroundColor(Theme.textColor)
+                        .foregroundColor(theme.primaryTextColor)
                         .lineLimit(2)
                     Text(viewModel.event.targetDateTime ?? Date(), style: .date)
                         .font(.caption)
-                        .foregroundColor(Theme.textColor)
+                        .foregroundColor(theme.primaryTextColor)
                         .lineLimit(1)
                 }
                 Spacer()
@@ -56,10 +56,10 @@ struct EventCardView: View {
                             Text("\(viewModel.event.delta.0)")
                                 .font(.title)
                                 .bold()
-                                .foregroundColor(Theme.textColor)
+                                .foregroundColor(theme.primaryTextColor)
                             Text(viewModel.event.delta.1)
                                 .font(.subheadline)
-                                .foregroundColor(Theme.textColor)
+                                .foregroundColor(theme.primaryTextColor)
                             
                         }.multilineTextAlignment(.center)
                     }
