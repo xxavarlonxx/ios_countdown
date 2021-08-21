@@ -22,10 +22,10 @@ struct TimerItemView: View {
                 Text("\(timerItem.value)")
                     .font(.title)
                     .bold()
-                    .foregroundColor(theme.primaryColor)
+                    .foregroundColor(theme.primaryTextColor)
                 Text(timerItem.unity)
                     .font(.subheadline)
-                    .foregroundColor(theme.primaryColor)
+                    .foregroundColor(theme.primaryTextColor)
                 
             }.multilineTextAlignment(.center)
         }
