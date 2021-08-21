@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import SwiftUIX
 
 struct EventDetailView: View {
     
@@ -29,6 +30,10 @@ struct EventDetailView: View {
                         .bold()
                         .foregroundColor(.white)
                     Spacer()
+                    if vm.timerItems.count == 0 {
+                        ActivityIndicator().animated(true).style(.large)
+                            .tintColor(Color.white)
+                    }
                     HStack{
                         ForEach(vm.timerItems.indices, id: \.self) { index in
                             if index < 3 {

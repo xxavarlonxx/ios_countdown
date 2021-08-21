@@ -21,6 +21,7 @@ struct CountdownApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+                .environmentObject(AppState())
         }.onChange(of: scenePhase) { phase in
             switch phase{
             case .background:

@@ -11,6 +11,7 @@ import SwipeCell
 struct EventCardView: View {
     
     @StateObject var viewModel: EventCardViewModel
+    @EnvironmentObject var appState: AppState
     
     init(event: EventMO = .init()) {
         let vm = EventCardViewModel(event: event)
@@ -85,12 +86,20 @@ struct EventCardView: View {
             Alert(title: Text("Delete Event"),
                   message: Text("Do you really want to delete Event \(item.title!)?"),
                   primaryButton: .destructive(Text("Yes"), action: {
-                    viewModel.deleteEvent(event: item)
+                    deleteTapped(item: item)
                   }),
                   secondaryButton: .cancel(Text("No"), action: {
                     dismissDestructiveDelayButton()
                   }))
         }
+        
+        
+    }
+    
+    func deleteTapped(item: EventMO) {
+        appState.isLoading = true
+        viewModel.deleteEvent(event: item)
+        appState.isLoading = false
     }
 }
 
@@ -121,3 +130,4 @@ extension EventCardView {
         }
     }
 }
+

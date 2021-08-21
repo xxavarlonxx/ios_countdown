@@ -12,7 +12,7 @@ struct EditEventView: View {
     @Environment(\.presentationMode)
     var presentationMode
     
-    
+    @EnvironmentObject var appState: AppState
     
     @StateObject var vm: ViewModel
     
@@ -26,8 +26,7 @@ struct EditEventView: View {
             Form{
                 Section(header: Text("Basis information")){
                     TextField("Name", text: $vm.title)
-                    DatePicker("Date", selection: $vm.targetDate, displayedComponents: .date)
-                    DatePicker("Time", selection: $vm.targetTime, displayedComponents: .hourAndMinute)
+                    DatePicker("Date & Time", selection: $vm.targetDateTime, displayedComponents: [.date, .hourAndMinute])
                 }
                 Section(header: Text("Visual information")){
                     Picker("Color", selection: $vm.selectedColor){
@@ -39,7 +38,7 @@ struct EditEventView: View {
                                 Text(color.capitalized)
                             }
                             
-                        }.accentColor(Theme.primaryColorDarker)
+                        }.accentColor(Theme.indigo500)
                     }
                 }
                 
@@ -54,13 +53,15 @@ struct EditEventView: View {
             .disabled(vm.title.isEmpty)
             )
         }
-        .accentColor(Theme.primaryColorDarker)
+        .accentColor(Theme.indigo500)
         .onAppear(perform: vm.onAppear)
     }
     
     func onDismiss(_ save: Bool){
         if save {
+            appState.isLoading = true
             vm.updateEvent()
+            appState.isLoading = false
         }
         self.presentationMode.wrappedValue.dismiss()
     }
@@ -70,8 +71,7 @@ struct EditEventView: View {
 extension EditEventView {
     final class ViewModel: ObservableObject{
         @Published var title:String = ""
-        @Published var targetDate = Date()
-        @Published var targetTime = Date()
+        @Published var targetDateTime = Date()
         @Published var selectedColor = EventColor.blue.rawValue
         @Published var barTitle: String = "Edit"
         
@@ -86,7 +86,7 @@ extension EditEventView {
         
         func updateEvent(){
             event.title = title
-            event.targetDateTime = Calendar.current.combine(date: targetDate, with: targetTime)
+            event.targetDateTime = targetDateTime
             event.color = selectedColor
             
             dataStorage.updateEvent(event: event)
@@ -94,8 +94,7 @@ extension EditEventView {
         
         func onAppear(){
             title = event.title ?? ""
-            targetDate = event.targetDate
-            targetTime = event.targetTime
+            targetDateTime = event.targetDateTime ?? Date()
             selectedColor = event.color ?? EventColor.blue.rawValue
         }
     }

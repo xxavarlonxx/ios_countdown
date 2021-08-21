@@ -11,8 +11,10 @@ import Combine
 
 struct EventListView: View {
     
-    @StateObject var vm: ViewModel = ViewModel()
+    @StateObject var vm: ViewModel = .init()
+    @EnvironmentObject var state: AppState
     
+        
     var body: some View {
        
         
@@ -24,7 +26,7 @@ struct EventListView: View {
             }
         }
         .padding(.horizontal, 8)
-        .padding(.top, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+        .padding(.top, 10)
         .onAppear(perform: vm.onAppear)
     }
 }
@@ -37,7 +39,7 @@ struct EventListView_Previews: PreviewProvider {
 
 extension EventListView {
     final class ViewModel: ObservableObject {
-        @Published var events: [EventMO] = []
+        @Published var events: [EventMO] = [EventMO]()
         
         private var dataStorage: EventDataStorage
         private var cancellable: AnyCancellable?
