@@ -37,7 +37,10 @@ struct EventDetailView: View {
                         ActivityIndicator().animated(true).style(.large)
                             .tintColor(theme.primaryTextColor)
                     }else{
-                        Text(vm.targetTimeIsInThePast ? "Seit" : "Noch").bold().font(.title)
+                        Text(vm.targetTimeIsInThePast ? "Seit" : "Noch")
+                            .bold()
+                            .font(.title)
+                            .foregroundColor(theme.primaryTextColor)
                         HStack{
                             ForEach(vm.timerItems.indices, id: \.self) { index in
                                 if index < 3 {

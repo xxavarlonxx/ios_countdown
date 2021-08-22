@@ -10,7 +10,7 @@ import UserNotifications
 import Combine
 
 protocol NotificationService {
-    func addNotificationForEvent(_ event: EventMO)
+    func addNotificationsForEvent(_ event: EventMO)
     func editNotificationForEvent(_ event: EventMO)
     func deleteNotificationForEvent(_ event: EventMO)
     func subcribeToSelectedEvent() -> AnyPublisher<String, Never>
@@ -32,32 +32,33 @@ class NotificationManager: NSObject, NotificationService {
         return selectedEventId.eraseToAnyPublisher()
     }
     
-    func addNotificationForEvent(_ event: EventMO){
-        let request = createNotificationRequestFromEvent(event)
+    func addNotificationsForEvent(_ event: EventMO){
+        let requests = createNotificationRequestsFromEvent(event)
         
-        UNUserNotificationCenter.current().add(request) { error in
-            print("UNUserNotificationCenter Add Completion")
-            if let error = error {
-                print(error.localizedDescription)
+        for request in requests {
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
             }
         }
-        
-        print("UNUserNotificationCenter Added")
-        
     }
     
     func editNotificationForEvent(_ event: EventMO){
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [event.idValue.uuidString])
-        let request = createNotificationRequestFromEvent(event)
-        UNUserNotificationCenter.current().add(request) { error in
-            if let error = error {
-                print(error.localizedDescription)
+        UNUserNotificationCenter.current()
+            .removePendingNotificationRequests(withIdentifiers: [event.firstReminderIdValue.uuidString, event.secondReminderIdValue.uuidString])
+        let requests = createNotificationRequestsFromEvent(event)
+        for request in requests {
+            UNUserNotificationCenter.current().add(request) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
             }
         }
     }
     
     func deleteNotificationForEvent(_ event: EventMO){
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [event.idValue.uuidString])
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [event.firstReminderIdValue.uuidString, event.secondReminderIdValue.uuidString])
     }
     
     func deleteAllPendingNotifications() {
@@ -65,19 +66,50 @@ class NotificationManager: NSObject, NotificationService {
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
     }
     
-    private func createNotificationRequestFromEvent(_ event: EventMO) -> UNNotificationRequest{
-        let content = UNMutableNotificationContent()
-        content.badge = 1
-        content.title = event.titleValue
-        content.subtitle = "Event '\(event.titleValue)' starts now!"
-        content.sound = UNNotificationSound.default
+    private func createNotificationRequestsFromEvent(_ event: EventMO) -> [UNNotificationRequest]{
+        var requests = [UNNotificationRequest]()
         
-//        let dateCompoents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: event.targetDateTimeValue)
-//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateCompoents, repeats: false)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        if event.firstReminderValue != EventReminder.none.rawValue {
+            let reminder = EventReminder(rawValue: event.firstReminderValue)!
+            
+            let content = UNMutableNotificationContent()
+            content.badge = 1
+            content.title = event.titleValue
+            content.subtitle = "Event '\(event.titleValue)' \(reminder.description)!"
+            content.sound = UNNotificationSound.default
+            
+            let triggerDate = reminder.notificationDateForDate(event.targetDateTimeValue)
+            
+            let dateCompoents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateCompoents, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: event.firstReminderIdValue.uuidString, content: content, trigger: trigger)
+            print("New notification Request for first reminder with id \(event.firstReminderIdValue) at \(triggerDate)")
+            requests.append(request)
+        }
         
-        let request = UNNotificationRequest(identifier: event.idValue.uuidString, content: content, trigger: trigger)
-        return request
+        
+        if event.secondReminderValue != EventReminder.none.rawValue {
+            let reminder = EventReminder(rawValue: event.firstReminderValue)!
+            
+            let content = UNMutableNotificationContent()
+            content.badge = 1
+            content.title = event.titleValue
+            content.subtitle = "Event '\(event.titleValue)' \(reminder.description)!"
+            content.sound = UNNotificationSound.default
+            
+            let triggerDate = reminder.notificationDateForDate(event.targetDateTimeValue)
+            
+            let dateCompoents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: triggerDate)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateCompoents, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: event.secondReminderIdValue.uuidString, content: content, trigger: trigger)
+            print("New notification Request for second reminder with id \(event.secondReminderIdValue) at \(triggerDate)")
+            requests.append(request)
+        }
+        
+        
+        return requests
     }
 }
 
@@ -90,13 +122,7 @@ extension NotificationManager: UNUserNotificationCenterDelegate{
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let eventId = response.notification.request.identifier
-//        let event = StorageManager.shared.getEventById(eventId)
-//        guard let fetchedEvent = event else {
-//           return completionHandler()
-//        }
-        
         self.selectedEventId.send(eventId)
-        
         completionHandler()
     }
 }

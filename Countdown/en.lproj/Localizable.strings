@@ -1,0 +1,16 @@
+/* 
+  Localizations.strings
+  Countdown
+
+  Created by Andre Hochschulte on 22.08.21.
+  
+*/
+
+"title_events_list" = "Next Events";
+"title_loading_hud" = "Loading";
+"delete_event_title" = "Delete Event";
+"delete_event_text %@" =  "Do you really want to delete Event %@";
+"delete_event_positive_answer" = "Yes";
+"delete_event_negative_answer" = "No";
+
+

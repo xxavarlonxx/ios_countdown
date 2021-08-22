@@ -25,11 +25,19 @@ struct EditEventView: View {
     var body: some View {
         NavigationView{
             Form{
-                Section(header: Text("Basis information")){
+                Section(header: Text("Name")){
                     TextField("Name", text: $vm.title)
-                    DatePicker("Date & Time", selection: $vm.targetDateTime, displayedComponents: [.date, .hourAndMinute])
                 }
-                Section(header: Text("Visual information")){
+                Section(header: Text("Date & Time")){
+                    
+                    DatePicker("Date", selection: $vm.targetDateTime, displayedComponents: [.date])
+                    if !vm.allDay{
+                        DatePicker("Time", selection: $vm.targetDateTime, displayedComponents: [.hourAndMinute])
+                    }
+                    Toggle("All day", isOn: $vm.allDay)
+                    
+                }
+                Section(header: Text("Color")){
                     Picker("Color", selection: $vm.selectedColor){
                         ForEach(EventColor.rawValueList(), id: \.self){color in
                             HStack{
@@ -38,6 +46,20 @@ struct EditEventView: View {
                                     .foregroundColor(EventColor(rawValue: color)?.color)
                                 Text(color.capitalized)
                             }
+                            
+                        }.accentColor(theme.primaryColor)
+                    }
+                }
+                Section(header: Text("Reminders")){
+                    Picker("First Reminder", selection: $vm.selectedFirstReminder){
+                        ForEach(EventReminder.allCasesAsString(), id: \.self){reminder in
+                            Text(reminder)
+                            
+                        }.accentColor(theme.primaryColor)
+                    }
+                    Picker("Second Reminder", selection: $vm.selectedSecondReminder){
+                        ForEach(EventReminder.allCasesAsString(), id: \.self){reminder in
+                            Text(reminder)
                             
                         }.accentColor(theme.primaryColor)
                     }
@@ -73,7 +95,9 @@ extension EditEventView {
         @Published var title:String = ""
         @Published var targetDateTime = Date()
         @Published var selectedColor = EventColor.blue.rawValue
-        @Published var barTitle: String = "Edit"
+        @Published var allDay: Bool = true
+        @Published var selectedFirstReminder = EventReminder.none.rawValue
+        @Published var selectedSecondReminder = EventReminder.none.rawValue
         
         private var dataStorage: EventDataStorage
         private var notificationService: NotificationService
@@ -83,6 +107,7 @@ extension EditEventView {
              notificationService: NotificationService = NotificationManager.shared,
              event: EventMO) {
             self.event = event
+            self.allDay = event.allDay
             self.dataStorage = dataStorage
             self.notificationService = notificationService
         }
@@ -91,15 +116,21 @@ extension EditEventView {
             event.title = title
             event.targetDateTime = targetDateTime
             event.color = selectedColor
+            event.firstReminder = selectedFirstReminder
+            event.secondReminder = selectedSecondReminder
             
             dataStorage.updateEvent(event: event)
             notificationService.editNotificationForEvent(event)
         }
         
         func onAppear(){
-            title = event.title ?? ""
-            targetDateTime = event.targetDateTime ?? Date()
+            title = event.titleValue
+            targetDateTime = event.targetDateTimeValue
             selectedColor = event.color ?? EventColor.blue.rawValue
+            selectedFirstReminder = event.firstReminderValue
+            selectedSecondReminder = event.secondReminderValue
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
         }
     }
 }

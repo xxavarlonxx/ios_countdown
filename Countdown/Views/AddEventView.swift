@@ -20,11 +20,19 @@ struct AddEventView: View {
     var body: some View {
         NavigationView{
             Form{
-                Section(header: Text("Basis information")){
+                Section(header: Text("Name")){
                     TextField("Name", text: $vm.title)
-                    DatePicker("Date & Time", selection: $vm.targetDateTime, displayedComponents: [.date, .hourAndMinute])
                 }
-                Section(header: Text("Visual information")){
+                Section(header: Text("Date & Time")){
+                    
+                    DatePicker("Date", selection: $vm.targetDateTime, displayedComponents: [.date])
+                    if !vm.allDay{
+                        DatePicker("Time", selection: $vm.targetDateTime, displayedComponents: [.hourAndMinute])
+                    }
+                    Toggle("All day", isOn: $vm.allDay)
+                    
+                }
+                Section(header: Text("Color")){
                     Picker("Color", selection: $vm.selectedColor){
                         ForEach(EventColor.rawValueList(), id: \.self){color in
                             HStack{
@@ -33,6 +41,20 @@ struct AddEventView: View {
                                     .foregroundColor(EventColor(rawValue: color)?.color)
                                 Text(color.capitalized)
                             }
+                            
+                        }.accentColor(theme.primaryColor)
+                    }
+                }
+                Section(header: Text("Reminders")){
+                    Picker("First Reminder", selection: $vm.selectedFirstReminder){
+                        ForEach(EventReminder.allCasesAsString(), id: \.self){reminder in
+                            Text(reminder)
+                            
+                        }.accentColor(theme.primaryColor)
+                    }
+                    Picker("Second Reminder", selection: $vm.selectedSecondReminder){
+                        ForEach(EventReminder.allCasesAsString(), id: \.self){reminder in
+                            Text(reminder)
                             
                         }.accentColor(theme.primaryColor)
                     }
@@ -75,8 +97,11 @@ struct AddEventView_Previews: PreviewProvider {
 extension AddEventView {
     final class ViewModel: ObservableObject{
         @Published var title:String = ""
+        @Published var allDay: Bool = true
         @Published var targetDateTime = Date()
         @Published var selectedColor = EventColor.blue.rawValue
+        @Published var selectedFirstReminder = EventReminder.none.rawValue
+        @Published var selectedSecondReminder = EventReminder.none.rawValue
         
         private var dataStorage: EventDataStorage
         private var notificationService: NotificationService
@@ -87,10 +112,16 @@ extension AddEventView {
         }
         
         func addEvent(){
+            if allDay {
+                targetDateTime = Calendar.current.startOfDay(for: targetDateTime)
+            }
             let event = dataStorage.addEvent(title: title,
-                                 targetDateTime: targetDateTime,
-                                 colorName: selectedColor)
-            notificationService.addNotificationForEvent(event)
+                                             targetDateTime: targetDateTime,
+                                             allDay: allDay,
+                                             colorName: selectedColor,
+                                             firstReminder: selectedFirstReminder,
+                                             secondReminder: selectedSecondReminder)
+            notificationService.addNotificationsForEvent(event)
         }
         
     }

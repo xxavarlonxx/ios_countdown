@@ -92,12 +92,14 @@ struct EventCardView: View {
             EditEventView(event: item)
         }
         .alert(item: $viewModel.eventDeleteSelection) { item in
-            Alert(title: Text("Delete Event"),
-                  message: Text("Do you really want to delete Event \(item.title!)?"),
-                  primaryButton: .destructive(Text("Yes"), action: {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+            return Alert(title: Text("delete_event_title"),
+                  message: Text("delete_event_text \(item.title!)?"),
+                  primaryButton: .destructive(Text("delete_event_positive_answer"), action: {
                     deleteTapped(item: item)
                   }),
-                  secondaryButton: .cancel(Text("No"), action: {
+                  secondaryButton: .cancel(Text("delete_event_negative_answer"), action: {
                     dismissDestructiveDelayButton()
                   }))
         }
@@ -142,7 +144,6 @@ extension EventCardView {
             
             cancellable = self.notificsationService.subcribeToSelectedEvent().sink(receiveValue: { eventId in
                 if self.event.idValue.uuidString == eventId {
-                    print("Sinking Event \(eventId)")
                     self.isActive = true
                 }
             })

@@ -32,23 +32,23 @@ struct MainView: View {
                                 .padding(30)
                                 .foregroundColor(.white)
                                 .background(theme.primaryColor)
-                                .shadow(radius:20)
                             
                         }
                         .clipShape(Circle())
+                        .shadow(radius: 20)
                         .padding(.bottom)
                         .sheet(isPresented: $vm.showingAddModal){
                             AddEventView()
                         }
                     }
                     
-                }.navigationBarTitle("Next Events", displayMode: .large)
+                }.navigationBarTitle(LocalizedStringKey("title_events_list"), displayMode: .large)
                 
             }
             .accentColor(theme.primaryTextColor)
             .disabled(appState.isLoading)
             
-            LoadingView(isPresented: $appState.isLoading, text: "Loading")
+            LoadingView(isPresented: $appState.isLoading, text: "title_loading_hud")
         }.onAppear(perform: onAppear)
             
     }

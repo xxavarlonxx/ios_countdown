@@ -12,13 +12,13 @@ import CoreData
 
 protocol EventDataStorage {
     func getAllEvents() -> AnyPublisher<[EventMO], Never>
-//    func getEventById(_ id: String) -> EventMO?
-    func addEvent(title: String, targetDateTime:Date, colorName: String) -> EventMO
+    func addEvent(title: String, targetDateTime:Date, allDay: Bool, colorName: String, firstReminder: String, secondReminder: String) -> EventMO
     func deleteEvent(event: EventMO)
     func updateEvent(event: EventMO)
 }
 
 class StorageManager: EventDataStorage  {
+    
     private var events = CurrentValueSubject<[EventMO],Never>([])
     
     private lazy var container: NSPersistentContainer = {
@@ -45,25 +45,22 @@ class StorageManager: EventDataStorage  {
         self.events.send(fetchedEvents)
     }
     
-//    func getEventById(_ id: String) -> EventMO? {
-//        let request: NSFetchRequest<EventMO> = EventMO.fetchRequest()
-//        let predicate = NSPredicate(format: "id == %@", id)
-//        request.predicate = predicate
-//        let events: [EventMO]? = try? container.viewContext.fetch(request)
-//        guard let fetchedEvents = events else {return nil}
-//        return fetchedEvents.first
-//    }
-    
     
     func getAllEvents() -> AnyPublisher<[EventMO], Never> {
         return events.eraseToAnyPublisher()
     }
-    func addEvent(title: String, targetDateTime: Date, colorName: String) -> EventMO {
+    func addEvent(title: String, targetDateTime: Date, allDay: Bool, colorName: String, firstReminder: String, secondReminder: String) -> EventMO {
         let event = EventMO(context: container.viewContext)
         event.id = UUID()
         event.title = title
         event.targetDateTime = targetDateTime
+        event.allDay = allDay
         event.color = colorName
+        event.firstReminder = firstReminder
+        event.secondReminder = secondReminder
+        event.firstReminderId = UUID()
+        event.secondReminderId = UUID()
+        
         saveContext()
         fetchEvents()
         return event

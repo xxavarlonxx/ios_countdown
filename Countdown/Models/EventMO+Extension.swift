@@ -19,6 +19,10 @@ extension EventMO {
         return targetDateTime ?? Date()
     }
     
+    var allDayValue: Bool {
+        return allDay
+    }
+    
     var titleValue: String {
         return title ?? ""
     }
@@ -31,6 +35,26 @@ extension EventMO {
         guard let color = color else {return EventColor.blue}
         return EventColor(rawValue: color)!
     }
+    
+    var firstReminderValue: String {
+        guard let reminder = firstReminder else {return EventReminder.none.rawValue}
+        return reminder
+    }
+    
+    var secondReminderValue: String {
+        guard let reminder = secondReminder else {return EventReminder.none.rawValue}
+        return reminder
+    }
+    
+    var firstReminderIdValue: UUID {
+        return firstReminderId ?? UUID()
+    }
+    
+    var secondReminderIdValue: UUID {
+        return secondReminderId ?? UUID()
+    }
+    
+
     
     var delta: (Int, String) {
         let calendar = Calendar.current

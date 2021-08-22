@@ -10,6 +10,8 @@
 		650016E726D1147B0019A311 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650016E626D1147B0019A311 /* LoadingView.swift */; };
 		650016E926D11D0B0019A311 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650016E826D11D0B0019A311 /* AppState.swift */; };
 		650016EB26D170150019A311 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650016EA26D170150019A311 /* NotificationManager.swift */; };
+		650016EE26D296C10019A311 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 650016F026D296C10019A311 /* Localizable.strings */; };
+		650016F326D2DB5D0019A311 /* EventReminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650016F226D2DB5D0019A311 /* EventReminder.swift */; };
 		650278F226C00C1800F084C5 /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650278F126C00C1800F084C5 /* EditEventView.swift */; };
 		650278F726C18BDB00F084C5 /* Countdown.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 650278F526C18BDB00F084C5 /* Countdown.xcdatamodeld */; };
 		650278F926C18F0A00F084C5 /* EventColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650278F826C18F0A00F084C5 /* EventColor.swift */; };
@@ -56,6 +58,9 @@
 		650016E626D1147B0019A311 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		650016E826D11D0B0019A311 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		650016EA26D170150019A311 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		650016EF26D296C10019A311 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		650016F126D296CB0019A311 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		650016F226D2DB5D0019A311 /* EventReminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventReminder.swift; sourceTree = "<group>"; };
 		650278F126C00C1800F084C5 /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
 		650278F626C18BDB00F084C5 /* Countdown.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Countdown.xcdatamodel; sourceTree = "<group>"; };
 		650278F826C18F0A00F084C5 /* EventColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventColor.swift; sourceTree = "<group>"; };
@@ -151,6 +156,7 @@
 		65445BFA26BAFADB008222A0 /* Countdown */ = {
 			isa = PBXGroup;
 			children = (
+				650016F026D296C10019A311 /* Localizable.strings */,
 				65445BFB26BAFADB008222A0 /* CountdownApp.swift */,
 				657B1D1D26BFE56E00CDB3BB /* Theme.swift */,
 				650016E826D11D0B0019A311 /* AppState.swift */,
@@ -197,6 +203,7 @@
 				650278F526C18BDB00F084C5 /* Countdown.xcdatamodeld */,
 				650278F826C18F0A00F084C5 /* EventColor.swift */,
 				65BBF30A26CAC4AC00699544 /* TimerItem.swift */,
+				650016F226D2DB5D0019A311 /* EventReminder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -305,6 +312,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 65445BEF26BAFADB008222A0;
 			packageReferences = (
@@ -328,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				65445C0326BAFADD008222A0 /* Preview Assets.xcassets in Resources */,
+				650016EE26D296C10019A311 /* Localizable.strings in Resources */,
 				65445C0026BAFADD008222A0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,6 +366,7 @@
 				65BBF30626C99FE000699544 /* TimerItemView.swift in Sources */,
 				65D0AFF826C94E09009D02A1 /* EventDetailView.swift in Sources */,
 				650016E926D11D0B0019A311 /* AppState.swift in Sources */,
+				650016F326D2DB5D0019A311 /* EventReminder.swift in Sources */,
 				657B1D1E26BFE56E00CDB3BB /* Theme.swift in Sources */,
 				650016E726D1147B0019A311 /* LoadingView.swift in Sources */,
 				650016EB26D170150019A311 /* NotificationManager.swift in Sources */,
@@ -406,6 +416,18 @@
 			targetProxy = 65445C1526BAFADD008222A0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		650016F026D296C10019A311 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				650016EF26D296C10019A311 /* en */,
+				650016F126D296CB0019A311 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		65445C1B26BAFADD008222A0 /* Debug */ = {
