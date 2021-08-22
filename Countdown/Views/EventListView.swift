@@ -44,7 +44,7 @@ extension EventListView {
         private var dataStorage: EventDataStorage
         private var cancellable: AnyCancellable?
         
-        init(dataStorage: EventDataStorage = CDEventDataStorage.shared) {
+        init(dataStorage: EventDataStorage = StorageManager.shared) {
             self.dataStorage = dataStorage
         }
         

@@ -14,7 +14,7 @@ protocol TimerService {
 }
 
 
-class CountdownTimerService: TimerService {
+class TimerManager: TimerService {
     private var timerItems: CurrentValueSubject<[TimerItem], Never>
     
     init() {

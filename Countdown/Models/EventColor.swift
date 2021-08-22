@@ -39,8 +39,6 @@ enum EventColor: String, CaseIterable {
             let value = colorCase.rawValue
             list.append(value)
         }
-        
-        print(list)
         return list
     }
 }

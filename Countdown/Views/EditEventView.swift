@@ -68,7 +68,6 @@ struct EditEventView: View {
     }
 }
 
-//Testkommentar123
 extension EditEventView {
     final class ViewModel: ObservableObject{
         @Published var title:String = ""
@@ -77,12 +76,15 @@ extension EditEventView {
         @Published var barTitle: String = "Edit"
         
         private var dataStorage: EventDataStorage
-        
+        private var notificationService: NotificationService
         private var event: EventMO
         
-        init(dataStorage: EventDataStorage = CDEventDataStorage.shared, event: EventMO) {
+        init(dataStorage: EventDataStorage = StorageManager.shared,
+             notificationService: NotificationService = NotificationManager.shared,
+             event: EventMO) {
             self.event = event
             self.dataStorage = dataStorage
+            self.notificationService = notificationService
         }
         
         func updateEvent(){
@@ -91,6 +93,7 @@ extension EditEventView {
             event.color = selectedColor
             
             dataStorage.updateEvent(event: event)
+            notificationService.editNotificationForEvent(event)
         }
         
         func onAppear(){

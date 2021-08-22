@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftUIX
+import UserNotifications
 
 struct MainView: View {
     
@@ -48,10 +49,26 @@ struct MainView: View {
             .disabled(appState.isLoading)
             
             LoadingView(isPresented: $appState.isLoading, text: "Loading")
-        }
+        }.onAppear(perform: onAppear)
             
     }
     
+    func onAppear() {
+        if !appState.hasAlreadyAskForNotificationPermission{
+            DispatchQueue.main.asyncAfter(deadline: .now()+3) {
+                UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    appState.hasAlreadyAskForNotificationPermission = true
+                    if success {
+                        appState.hasUserNotificationPermission = true
+                    }
+                    
+                    if let error = error {
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            }
+        }
+    }
     
 }
 
@@ -59,6 +76,10 @@ struct MainView: View {
 extension MainView {
     final class ViewModel: ObservableObject {
         @Published var showingAddModal: Bool = false
+        
+        func onAppear(){
+            
+        }
     }
 }
 

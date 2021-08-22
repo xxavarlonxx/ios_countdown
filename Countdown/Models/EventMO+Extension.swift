@@ -11,22 +11,21 @@ import SwiftUI
 
 extension EventMO {
     
-//    var targetDate: Date {
-//        let dateComponent = Calendar.current.dateComponents([.year, .month, .day], from: targetDateTime ?? Date())
-//        var newComponent = DateComponents()
-//        newComponent.year = dateComponent.year!
-//        newComponent.month = dateComponent.month!
-//        newComponent.day = dateComponent.day!
-//        return Calendar.current.date(from: newComponent)!
-//    }
-//    
-//    var targetTime: Date {
-//        let dateComponent = Calendar.current.dateComponents([.hour, .minute], from: targetDateTime ?? Date())
-//        var newComponent = DateComponents()
-//        newComponent.hour = dateComponent.hour!
-//        newComponent.minute = dateComponent.minute!
-//        return Calendar.current.date(from: newComponent)!
-//    }
+    var idValue: UUID {
+        return id ?? UUID()
+    }
+        
+    var targetDateTimeValue: Date {
+        return targetDateTime ?? Date()
+    }
+    
+    var titleValue: String {
+        return title ?? ""
+    }
+    
+    var colorValue: String {
+        return color ?? EventColor.blue.rawValue
+    }
     
     var eventColor: EventColor {
         guard let color = color else {return EventColor.blue}

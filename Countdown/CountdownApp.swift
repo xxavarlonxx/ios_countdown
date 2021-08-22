@@ -12,10 +12,15 @@ struct CountdownApp: App {
     
     @Environment(\.scenePhase) var scenePhase
     
+    
     init() {
-        let storage = CDEventDataStorage.shared
-        let nextWeek = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
-        storage.addEvent(title: "Test", targetDateTime: nextWeek, colorName: EventColor.purple.rawValue)
+        let storage = StorageManager.shared
+//        let nextWeek = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
+//        let nextSeconds = Calendar.current.date(byAdding: .second, value: 10, to: Date() )!
+        NotificationManager.shared.deleteAllPendingNotifications()
+//        storage.addEvent(title: "Test", targetDateTime: nextWeek, colorName: EventColor.purple.rawValue)
+//        let event = storage.addEvent(title: "TestNotification", targetDateTime: nextSeconds, colorName: EventColor.green.rawValue)
+//        NotificationManager.shared.addNotificationForEvent(event)
     }
     
     var body: some Scene {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwipeCell
+import Combine
 
 struct EventCardView: View {
     
@@ -53,13 +54,21 @@ struct EventCardView: View {
                             .frame(width: 75, height: 75)
                             .foregroundColor(Color.black.opacity(0.5))
                         VStack(){
-                            Text("\(viewModel.event.delta.0)")
-                                .font(.title)
-                                .bold()
-                                .foregroundColor(theme.primaryTextColor)
-                            Text(viewModel.event.delta.1)
-                                .font(.subheadline)
-                                .foregroundColor(theme.primaryTextColor)
+                            if viewModel.eventTargetIsInThePast(){
+                                Image(systemName: "checkmark.circle")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(theme.primaryTextColor)
+                            }else{
+                                Text("\(viewModel.event.delta.0)")
+                                    .font(.title)
+                                    .bold()
+                                    .foregroundColor(theme.primaryTextColor)
+                                Text(viewModel.event.delta.1)
+                                    .font(.subheadline)
+                                    .foregroundColor(theme.primaryTextColor)
+                            }
+                            
                             
                         }.multilineTextAlignment(.center)
                     }
@@ -117,16 +126,36 @@ extension EventCardView {
         @Published var isActive: Bool = false
         @Published var eventEditSelection: EventMO?
         @Published var eventDeleteSelection: EventMO?
+        @Published var eventFinishedSelection: EventMO?
         
         private var dataStorage: EventDataStorage
+        private var notificsationService: NotificationService
         
-        init(dataStorage: EventDataStorage = CDEventDataStorage.shared, event: EventMO) {
+        private var cancellable: AnyCancellable?
+        
+        init(dataStorage: EventDataStorage = StorageManager.shared,
+             notificationService: NotificationService = NotificationManager.shared,
+             event: EventMO) {
             self.dataStorage = dataStorage
+            self.notificsationService = notificationService
             self.event = event
+            
+            cancellable = self.notificsationService.subcribeToSelectedEvent().sink(receiveValue: { eventId in
+                if self.event.idValue.uuidString == eventId {
+                    print("Sinking Event \(eventId)")
+                    self.isActive = true
+                }
+            })
+            
         }
 
         func deleteEvent(event: EventMO){
             self.dataStorage.deleteEvent(event: event)
+            notificsationService.deleteNotificationForEvent(event)
+        }
+        
+        func eventTargetIsInThePast()-> Bool{
+            return event.targetDateTimeValue <= Date()
         }
     }
 }

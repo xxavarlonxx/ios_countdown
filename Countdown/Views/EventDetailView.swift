@@ -26,34 +26,36 @@ struct EventDetailView: View {
         GeometryReader{ proxy in
             ZStack{
                 vm.backgroundColor.ignoresSafeArea()
-                VStack {
+                VStack(spacing: 16) {
                     Text(vm.eventName)
                         .font(.largeTitle)
                         .bold()
                         .foregroundColor(theme.primaryTextColor)
                     Spacer()
+                    
                     if vm.timerItems.count == 0 {
                         ActivityIndicator().animated(true).style(.large)
                             .tintColor(theme.primaryTextColor)
-                    }
-                    HStack{
-                        ForEach(vm.timerItems.indices, id: \.self) { index in
-                            if index < 3 {
-                                TimerItemView(timerItem: vm.timerItems[index])
-                            }
-                        }
-                    }
-                    
-                    if vm.timerItems.count > 3 {
+                    }else{
+                        Text(vm.targetTimeIsInThePast ? "Seit" : "Noch").bold().font(.title)
                         HStack{
                             ForEach(vm.timerItems.indices, id: \.self) { index in
-                                if index > 2 {
+                                if index < 3 {
                                     TimerItemView(timerItem: vm.timerItems[index])
                                 }
                             }
                         }
+                        
+                        if vm.timerItems.count > 3 {
+                            HStack{
+                                ForEach(vm.timerItems.indices, id: \.self) { index in
+                                    if index > 2 {
+                                        TimerItemView(timerItem: vm.timerItems[index])
+                                    }
+                                }
+                            }
+                        }
                     }
-                    
                     Spacer()
                     
                 }
@@ -77,12 +79,13 @@ extension EventDetailView {
         @Published var backgroundColor: Color
         @Published var eventName: String = ""
         @Published var timerItems: [TimerItem] = []
+        @Published var targetTimeIsInThePast: Bool = false
         
         private var event: EventMO
         private var timerService: TimerService
         private var cancellable: AnyCancellable?
         
-        init(timerService: TimerService = CountdownTimerService.init(), event: EventMO) {
+        init(timerService: TimerService = TimerManager.init(), event: EventMO) {
             self.timerService = timerService
             self.event = event
             self.backgroundColor = event.eventColor.color
@@ -93,8 +96,15 @@ extension EventDetailView {
         }
         
         func updateDeltaTime(currentDateTime: Date){
-            guard let targetDateTime = event.targetDateTime else {return}
-            timerService.updateDeltaTimeFrom(currentDateTime, to: targetDateTime)
+            var from = currentDateTime
+            var to = event.targetDateTimeValue
+            
+            if to <= from {
+                targetTimeIsInThePast = true
+                from = event.targetDateTimeValue
+                to = currentDateTime
+            }
+            timerService.updateDeltaTimeFrom(from, to: to)
         }
     }
 }

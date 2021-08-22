@@ -12,13 +12,13 @@ import CoreData
 
 protocol EventDataStorage {
     func getAllEvents() -> AnyPublisher<[EventMO], Never>
-    func addEvent(title: String, targetDateTime:Date, colorName: String)
+//    func getEventById(_ id: String) -> EventMO?
+    func addEvent(title: String, targetDateTime:Date, colorName: String) -> EventMO
     func deleteEvent(event: EventMO)
     func updateEvent(event: EventMO)
 }
 
-class CDEventDataStorage: EventDataStorage  {
-    
+class StorageManager: EventDataStorage  {
     private var events = CurrentValueSubject<[EventMO],Never>([])
     
     private lazy var container: NSPersistentContainer = {
@@ -31,7 +31,7 @@ class CDEventDataStorage: EventDataStorage  {
         return container
     }()
     
-    static let shared = CDEventDataStorage()
+    static let shared = StorageManager()
     
     private init() {
         fetchEvents()
@@ -45,18 +45,28 @@ class CDEventDataStorage: EventDataStorage  {
         self.events.send(fetchedEvents)
     }
     
+//    func getEventById(_ id: String) -> EventMO? {
+//        let request: NSFetchRequest<EventMO> = EventMO.fetchRequest()
+//        let predicate = NSPredicate(format: "id == %@", id)
+//        request.predicate = predicate
+//        let events: [EventMO]? = try? container.viewContext.fetch(request)
+//        guard let fetchedEvents = events else {return nil}
+//        return fetchedEvents.first
+//    }
+    
     
     func getAllEvents() -> AnyPublisher<[EventMO], Never> {
         return events.eraseToAnyPublisher()
     }
-    func addEvent(title: String, targetDateTime: Date, colorName: String) {
+    func addEvent(title: String, targetDateTime: Date, colorName: String) -> EventMO {
         let event = EventMO(context: container.viewContext)
+        event.id = UUID()
         event.title = title
         event.targetDateTime = targetDateTime
         event.color = colorName
         saveContext()
         fetchEvents()
-        
+        return event
     }
     
     func updateEvent(event: EventMO) {

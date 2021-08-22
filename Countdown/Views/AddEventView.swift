@@ -79,15 +79,18 @@ extension AddEventView {
         @Published var selectedColor = EventColor.blue.rawValue
         
         private var dataStorage: EventDataStorage
+        private var notificationService: NotificationService
         
-        init(dataStorage: EventDataStorage = CDEventDataStorage.shared) {
+        init(dataStorage: EventDataStorage = StorageManager.shared, notificationService: NotificationService = NotificationManager.shared) {
             self.dataStorage = dataStorage
+            self.notificationService = notificationService
         }
         
         func addEvent(){
-            dataStorage.addEvent(title: title,
+            let event = dataStorage.addEvent(title: title,
                                  targetDateTime: targetDateTime,
                                  colorName: selectedColor)
+            notificationService.addNotificationForEvent(event)
         }
         
     }
