@@ -8,9 +8,38 @@
 
 "title_events_list" = "Next Events";
 "title_loading_hud" = "Loading";
+
 "delete_event_title" = "Delete Event";
 "delete_event_text %@" =  "Do you really want to delete Event %@";
 "delete_event_positive_answer" = "Yes";
 "delete_event_negative_answer" = "No";
 
+"add_event_form_name_section_label" = "Name";
+"add_event_form_name_textfield_placeholder" = "Name";
+"add_event_form_datetime_section_label" = "Date & Time";
+"add_event_form_date_picker_label" = "Date";
+"add_event_form_time_picker_label" = "Time";
+"add_event_form_allday_toggle_label" = "All day";
+"add_event_form_color_section_label" = "Color";
+"add_event_form_color_picker_label" = "Color";
+"add_event_form_reminders_section_label" = "Reminders";
+"add_event_form_firstreminder_picker_label" = "First Reminder";
+"add_event_form_secondreminder_picker_label" = "Second Reminder";
+"add_event_form_title" = "Add Event";
+"add_event_form_positive_button_title" = "Add";
+"add_event_form_negative_button_title" = "Cancel";
 
+"edit_event_form_name_section_label" = "Name";
+"edit_event_form_name_textfield_placeholder" = "Name";
+"edit_event_form_datetime_section_label" = "Date & Time";
+"edit_event_form_date_picker_label" = "Date";
+"edit_event_form_time_picker_label" = "Time";
+"edit_event_form_allday_toggle_label" = "All day";
+"edit_event_form_color_section_label" = "Color";
+"edit_event_form_color_picker_label" = "Color";
+"edit_event_form_reminders_section_label" = "Reminders";
+"edit_event_form_firstreminder_picker_label" = "First Reminder";
+"edit_event_form_secondreminder_picker_label" = "Second Reminder";
+"edit_event_form_title" = "Edit";
+"edit_event_form_positive_button_title" = "Save";
+"edit_event_form_negative_button_title" = "Cancel";

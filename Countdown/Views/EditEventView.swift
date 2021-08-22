@@ -25,20 +25,20 @@ struct EditEventView: View {
     var body: some View {
         NavigationView{
             Form{
-                Section(header: Text("Name")){
-                    TextField("Name", text: $vm.title)
+                Section(header: Text("edit_event_form_name_section_label")){
+                    TextField("edit_event_form_name_textfield_placeholder", text: $vm.title)
                 }
-                Section(header: Text("Date & Time")){
+                Section(header: Text("edit_event_form_datetime_section_label")){
                     
-                    DatePicker("Date", selection: $vm.targetDateTime, displayedComponents: [.date])
+                    DatePicker("edit_event_form_date_picker_label", selection: $vm.targetDateTime, displayedComponents: [.date])
                     if !vm.allDay{
-                        DatePicker("Time", selection: $vm.targetDateTime, displayedComponents: [.hourAndMinute])
+                        DatePicker("edit_event_form_time_picker_label", selection: $vm.targetDateTime, displayedComponents: [.hourAndMinute])
                     }
-                    Toggle("All day", isOn: $vm.allDay)
+                    Toggle("edit_event_form_allday_toggle_label", isOn: $vm.allDay)
                     
                 }
-                Section(header: Text("Color")){
-                    Picker("Color", selection: $vm.selectedColor){
+                Section(header: Text("edit_event_form_color_section_label")){
+                    Picker("edit_event_form_color_picker_label", selection: $vm.selectedColor){
                         ForEach(EventColor.rawValueList(), id: \.self){color in
                             HStack{
                                 Rectangle()
@@ -50,14 +50,14 @@ struct EditEventView: View {
                         }.accentColor(theme.primaryColor)
                     }
                 }
-                Section(header: Text("Reminders")){
-                    Picker("First Reminder", selection: $vm.selectedFirstReminder){
+                Section(header: Text("edit_event_form_reminders_section_label")){
+                    Picker("edit_event_form_firstreminder_picker_label", selection: $vm.selectedFirstReminder){
                         ForEach(EventReminder.allCasesAsString(), id: \.self){reminder in
                             Text(reminder)
                             
                         }.accentColor(theme.primaryColor)
                     }
-                    Picker("Second Reminder", selection: $vm.selectedSecondReminder){
+                    Picker("edit_event_form_secondreminder_picker_label", selection: $vm.selectedSecondReminder){
                         ForEach(EventReminder.allCasesAsString(), id: \.self){reminder in
                             Text(reminder)
                             
@@ -66,12 +66,12 @@ struct EditEventView: View {
                 }
                 
             }
-            .navigationBarTitle("Edit", displayMode: .inline)
+            .navigationBarTitle("edit_event_form_title", displayMode: .inline)
             .navigationBarItems(leading: Button(action: {onDismiss(false)}) {
-                Text("Cancel")
+                Text("edit_event_form_negative_button_title")
             },
             trailing: Button(action: {onDismiss(true)}) {
-                Text("Save")
+                Text("edit_event_form_positive_button_title")
             }
             .disabled(vm.title.isEmpty)
             )
