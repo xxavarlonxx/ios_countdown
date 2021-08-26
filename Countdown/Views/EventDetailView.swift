@@ -37,7 +37,7 @@ struct EventDetailView: View {
                         ActivityIndicator().animated(true).style(.large)
                             .tintColor(theme.primaryTextColor)
                     }else{
-                        Text(vm.targetTimeIsInThePast ? "Seit" : "Noch")
+                        Text(vm.targetTimeIsInThePast ? "detail_event_time_headline_since" : "detail_event_time_headline_left")
                             .bold()
                             .font(.title)
                             .foregroundColor(theme.primaryTextColor)

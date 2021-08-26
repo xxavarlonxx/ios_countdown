@@ -12,3 +12,36 @@
 "delete_event_text %@" = "Wollen sie das Event %@ wirklich löschen?";
 "delete_event_positive_answer" = "Ja";
 "delete_event_negative_answer" = "Nein";
+
+"add_event_form_name_section_label" = "Name";
+"add_event_form_name_textfield_placeholder" = "Name";
+"add_event_form_datetime_section_label" = "Datum & Uhrzeit";
+"add_event_form_date_picker_label" = "Datum";
+"add_event_form_time_picker_label" = "Uhrzeit";
+"add_event_form_allday_toggle_label" = "Ganztägig";
+"add_event_form_color_section_label" = "Farbe";
+"add_event_form_color_picker_label" = "Farbe";
+"add_event_form_reminders_section_label" = "Errinnerungen";
+"add_event_form_firstreminder_picker_label" = "1. Errinnerung";
+"add_event_form_secondreminder_picker_label" = "2. Errinnerung";
+"add_event_form_title" = "Event hinzufügen";
+"add_event_form_positive_button_title" = "Hinzufügen";
+"add_event_form_negative_button_title" = "Abbrechen";
+
+"edit_event_form_name_section_label" = "Name";
+"edit_event_form_name_textfield_placeholder" = "Name";
+"edit_event_form_datetime_section_label" = "Datum & Uhrzeit";
+"edit_event_form_date_picker_label" = "Datum";
+"edit_event_form_time_picker_label" = "Uhrzeit";
+"edit_event_form_allday_toggle_label" = "Ganztägig";
+"edit_event_form_color_section_label" = "Farbe";
+"edit_event_form_color_picker_label" = "Farbe";
+"edit_event_form_reminders_section_label" = "Errinnerungen";
+"edit_event_form_firstreminder_picker_label" = "1. Errinnerung";
+"edit_event_form_secondreminder_picker_label" = "2. Errinnerung";
+"edit_event_form_title" = "Bearbeiten";
+"edit_event_form_positive_button_title" = "Speichern";
+"edit_event_form_negative_button_title" = "Abbrechen";
+
+"detail_event_time_headline_since" = "Seit"
+"detail_event_time_headline_left" = "Nochd"

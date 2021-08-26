@@ -43,3 +43,7 @@
 "edit_event_form_title" = "Edit";
 "edit_event_form_positive_button_title" = "Save";
 "edit_event_form_negative_button_title" = "Cancel";
+
+"detail_event_time_headline_since" = "Since"
+"detail_event_time_headline_left" = "Left"
+
