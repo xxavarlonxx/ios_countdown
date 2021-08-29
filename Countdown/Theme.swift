@@ -15,6 +15,8 @@ class Theme: ObservableObject {
     
     @Published var primaryTextColor: Color = Color.white
     
+    @Published var primaryIconColor: Color = Color.secondary
+    
 //    static var indigo900: Color = Color(.sRGB, red: 49/255, green: 46/255, blue: 129/255, opacity: 1.0)
 //
 //    static var indigo500: Color =

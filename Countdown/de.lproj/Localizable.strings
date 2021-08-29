@@ -27,21 +27,31 @@
 "add_event_form_title" = "Event hinzufügen";
 "add_event_form_positive_button_title" = "Hinzufügen";
 "add_event_form_negative_button_title" = "Abbrechen";
+"add_event_form_event_name_empty_validation_error_text" = "Der Name des Events darf nicht leer sein!";
+"add_event_form_event_datetime_past_validation_error_text" = "Das Datum des Events muss in der Zukunft liegen!";
 
-"edit_event_form_name_section_label" = "Name";
-"edit_event_form_name_textfield_placeholder" = "Name";
-"edit_event_form_datetime_section_label" = "Datum & Uhrzeit";
-"edit_event_form_date_picker_label" = "Datum";
-"edit_event_form_time_picker_label" = "Uhrzeit";
-"edit_event_form_allday_toggle_label" = "Ganztägig";
-"edit_event_form_color_section_label" = "Farbe";
-"edit_event_form_color_picker_label" = "Farbe";
-"edit_event_form_reminders_section_label" = "Errinnerungen";
-"edit_event_form_firstreminder_picker_label" = "1. Errinnerung";
-"edit_event_form_secondreminder_picker_label" = "2. Errinnerung";
 "edit_event_form_title" = "Bearbeiten";
 "edit_event_form_positive_button_title" = "Speichern";
 "edit_event_form_negative_button_title" = "Abbrechen";
 
-"detail_event_time_headline_since" = "Seit"
-"detail_event_time_headline_left" = "Nochd"
+"detail_event_time_headline_since" = "Seit";
+"detail_event_time_headline_left" = "Noch";
+
+"reminder_none_text" = "Keine";
+"reminder_now_text" = "Zum  Eventzeitpunkt";
+"reminder_five_minutes_text" = "5 Minuten vorher";
+"reminder_fifthteen_minutes_text" = "15 Minuten vorher";
+"reminder_thirty_minutes_text" = "30 Minuten vorher";
+"reminder_one_Hour_text" = "1 Stunde vorher";
+"reminder_one_Day_text" = "1 Tag vorher";
+"reminder_one_Week_text" = "1 Woche vorher";
+"reminder_one_Month_text" = "1 Monat vorher";
+"reminder_three_Months_text" = "3 Monate vorher";
+
+"color_blue_text" = "Blau";
+"color_yellow_text" = "Gelb";
+"color_green_text" = "Grün";
+"color_pink_text" = "Pink";
+"color_red_text" = "Rot";
+"color_purple_text" = "Lila";
+

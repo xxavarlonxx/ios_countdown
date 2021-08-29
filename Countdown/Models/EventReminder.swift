@@ -8,16 +8,16 @@
 import Foundation
 
 enum EventReminder: String,CaseIterable {
-    case none = "None"
-    case just = "At time of event"
-    case fiveMinutes = "5 Minutes before"
-    case fifthTeenMinutes = "15 Minutes before"
-    case thirtyMinutes = "30 Minutes before"
-    case oneHour = "1 Hour before"
-    case oneDay = "1 Day before"
-    case oneWeek = "1 Week before"
-    case oneMonth = "1 Month before"
-    case threeMonths = "3 Months before"
+    case none = "reminder_none_text"
+    case just = "reminder_now_text"
+    case fiveMinutes = "reminder_five_minutes_text"
+    case fifthTeenMinutes = "reminder_fifthteen_minutes_text"
+    case thirtyMinutes = "reminder_thirty_minutes_text"
+    case oneHour = "reminder_one_Hour_text"
+    case oneDay = "reminder_one_Day_text"
+    case oneWeek = "reminder_one_Week_text"
+    case oneMonth = "reminder_one_Month_text"
+    case threeMonths = "reminder_three_Months_text"
     
     public var description: String {
         switch self {
@@ -74,7 +74,7 @@ enum EventReminder: String,CaseIterable {
 //        return EventReminder(rawValue: name)!
 //    }
     
-    static func allCasesAsString() -> [String]  {
+    static func allCasesAsLocalizationStringKey() -> [String]  {
         var list = [String]()
         for reminderCase in allCases {
             let value = reminderCase.rawValue

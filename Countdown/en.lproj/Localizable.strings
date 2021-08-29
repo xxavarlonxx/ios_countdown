@@ -28,22 +28,35 @@
 "add_event_form_title" = "Add Event";
 "add_event_form_positive_button_title" = "Add";
 "add_event_form_negative_button_title" = "Cancel";
+"add_event_form_event_name_empty_validation_error_text" = "The Event Name is required!";
+"add_event_form_event_datetime_past_validation_error_text" = "The Event Date should lie in the future!";
 
-"edit_event_form_name_section_label" = "Name";
-"edit_event_form_name_textfield_placeholder" = "Name";
-"edit_event_form_datetime_section_label" = "Date & Time";
-"edit_event_form_date_picker_label" = "Date";
-"edit_event_form_time_picker_label" = "Time";
-"edit_event_form_allday_toggle_label" = "All day";
-"edit_event_form_color_section_label" = "Color";
-"edit_event_form_color_picker_label" = "Color";
-"edit_event_form_reminders_section_label" = "Reminders";
-"edit_event_form_firstreminder_picker_label" = "First Reminder";
-"edit_event_form_secondreminder_picker_label" = "Second Reminder";
 "edit_event_form_title" = "Edit";
 "edit_event_form_positive_button_title" = "Save";
 "edit_event_form_negative_button_title" = "Cancel";
 
-"detail_event_time_headline_since" = "Since"
-"detail_event_time_headline_left" = "Left"
+"detail_event_time_headline_since" = "Since";
+"detail_event_time_headline_left" = "Left";
+
+
+"reminder_none_text" = "None";
+"reminder_now_text" = "At time of event";
+"reminder_five_minutes_text" = "5 Minutes before";
+"reminder_fifthteen_minutes_text" = "15 Minutes before";
+"reminder_thirty_minutes_text" = "30 Minutes before";
+"reminder_one_Hour_text" = "1 Hour before";
+"reminder_one_Day_text" = "1 Day before";
+"reminder_one_Week_text" = "1 Week before";
+"reminder_one_Month_text" = "1 Month before";
+"reminder_three_Months_text" = "3 Months before";
+
+"color_blue_text" = "Blue";
+"color_yellow_text" = "Yellow";
+"color_green_text" = "Green";
+"color_pink_text" = "Pink";
+"color_red_text" = "Red";
+"color_purple_text" = "Purple";
+
+
+
 
