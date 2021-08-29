@@ -50,12 +50,12 @@ struct AddEventView: View {
                     HStack{
                         Image(systemName: "eyedropper").foregroundColor(theme.primaryIconColor)
                         Picker("add_event_form_color_picker_label", selection: $vm.selectedColor){
-                            ForEach(EventColor.rawValueList(), id: \.self){color in
+                            ForEach(EventColor.allCases, id: \.self){eventColor in
                                 HStack{
                                     Rectangle()
                                         .frame(width: 10, height: 10)
-                                        .foregroundColor(EventColor(rawValue: color)?.color)
-                                    Text(LocalizedStringKey(color))
+                                        .foregroundColor(eventColor.color)
+                                    Text(LocalizedStringKey(eventColor.localizedStringKey))
                                 }
                                 
                             }.accentColor(theme.primaryColor)
@@ -65,15 +65,15 @@ struct AddEventView: View {
                 }
                 Section(header: Text("add_event_form_reminders_section_label")){
                     Picker("add_event_form_firstreminder_picker_label", selection: $vm.selectedFirstReminder){
-                        ForEach(EventReminder.allCasesAsLocalizationStringKey(), id: \.self){reminder in
-                            Text(LocalizedStringKey(reminder))
+                        ForEach(EventReminder.allCases, id: \.self){reminder in
+                            Text(LocalizedStringKey(reminder.localizedStringKey))
                             
                         }.accentColor(theme.primaryColor)
                     }
-                    if vm.selectedFirstReminder != EventReminder.none.rawValue {
+                    if vm.selectedFirstReminder != EventReminder.none {
                         Picker("add_event_form_secondreminder_picker_label", selection: $vm.selectedSecondReminder){
-                            ForEach(EventReminder.allCasesAsLocalizationStringKey(), id: \.self){reminder in
-                                Text(LocalizedStringKey(reminder))
+                            ForEach(EventReminder.allCases, id: \.self){reminder in
+                                Text(LocalizedStringKey(reminder.localizedStringKey))
                                 
                             }.accentColor(theme.primaryColor)
                         }
@@ -120,10 +120,10 @@ extension AddEventView {
     final class ViewModel: ObservableObject{
         @Published var title:String = ""
         @Published var allDay: Bool = true
-        @Published var targetDateTime = Date()
-        @Published var selectedColor = EventColor.blue.rawValue
-        @Published var selectedFirstReminder = EventReminder.none.rawValue
-        @Published var selectedSecondReminder = EventReminder.none.rawValue
+        @Published var targetDateTime = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        @Published var selectedColor = EventColor.blue
+        @Published var selectedFirstReminder = EventReminder.none
+        @Published var selectedSecondReminder = EventReminder.none
         @Published var isValid = false
         @Published var errorTextEventName: LocalizedStringKey = ""
         @Published var errorTextEventDateTime: LocalizedStringKey = ""
@@ -161,7 +161,7 @@ extension AddEventView {
             
             $selectedFirstReminder.receive(on: RunLoop.main)
                 .dropFirst()
-                .map {$0 == EventReminder.none.rawValue ? EventReminder.none.rawValue : self.selectedSecondReminder}
+                .map {$0 == EventReminder.none ? EventReminder.none : self.selectedSecondReminder}
                 .assign(to: \.selectedSecondReminder, on: self)
                 .store(in: &cancellables)
             

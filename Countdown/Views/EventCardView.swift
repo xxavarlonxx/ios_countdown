@@ -95,7 +95,7 @@ struct EventCardView: View {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
             return Alert(title: Text("delete_event_title"),
-                  message: Text("delete_event_text \(item.title!)?"),
+                  message: Text("delete_event_text \(item.title!)"),
                   primaryButton: .destructive(Text("delete_event_positive_answer"), action: {
                     deleteTapped(item: item)
                   }),

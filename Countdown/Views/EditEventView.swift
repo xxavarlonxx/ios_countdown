@@ -51,12 +51,12 @@ struct EditEventView: View {
                     HStack{
                         Image(systemName: "eyedropper").foregroundColor(theme.primaryIconColor)
                         Picker("add_event_form_color_picker_label", selection: $vm.selectedColor){
-                            ForEach(EventColor.rawValueList(), id: \.self){color in
+                            ForEach(EventColor.allCases, id: \.self){eventColor in
                                 HStack{
                                     Rectangle()
                                         .frame(width: 10, height: 10)
-                                        .foregroundColor(EventColor(rawValue: color)?.color)
-                                    Text(LocalizedStringKey(color))
+                                        .foregroundColor(eventColor.color)
+                                    Text(LocalizedStringKey(eventColor.localizedStringKey))
                                 }
                                 
                             }.accentColor(theme.primaryColor)
@@ -65,15 +65,15 @@ struct EditEventView: View {
                 }
                 Section(header: Text("add_event_form_reminders_section_label")){
                     Picker("add_event_form_firstreminder_picker_label", selection: $vm.selectedFirstReminder){
-                        ForEach(EventReminder.allCasesAsLocalizationStringKey(), id: \.self){reminder in
-                            Text(LocalizedStringKey(reminder))
+                        ForEach(EventReminder.allCases, id: \.self){reminder in
+                            Text(LocalizedStringKey(reminder.localizedStringKey))
                             
                         }.accentColor(theme.primaryColor)
                     }
-                    if vm.selectedFirstReminder != EventReminder.none.rawValue {
+                    if vm.selectedFirstReminder != EventReminder.none {
                         Picker("add_event_form_secondreminder_picker_label", selection: $vm.selectedSecondReminder){
-                            ForEach(EventReminder.allCasesAsLocalizationStringKey(), id: \.self){reminder in
-                                Text(LocalizedStringKey(reminder))
+                            ForEach(EventReminder.allCases, id: \.self){reminder in
+                                Text(LocalizedStringKey(reminder.localizedStringKey))
                                 
                             }.accentColor(theme.primaryColor)
                         }
@@ -110,10 +110,10 @@ extension EditEventView {
     final class ViewModel: ObservableObject{
         @Published var title:String = ""
         @Published var targetDateTime = Date()
-        @Published var selectedColor = EventColor.blue.rawValue
+        @Published var selectedColor = EventColor.blue
         @Published var allDay: Bool = true
-        @Published var selectedFirstReminder = EventReminder.none.rawValue
-        @Published var selectedSecondReminder = EventReminder.none.rawValue
+        @Published var selectedFirstReminder = EventReminder.none
+        @Published var selectedSecondReminder = EventReminder.none
         @Published var isValid = false
         @Published var errorTextEventName = ""
         @Published var errorTextEventDateTime = ""
@@ -156,7 +156,7 @@ extension EditEventView {
             
             $selectedFirstReminder.receive(on: RunLoop.main)
                 .dropFirst()
-                .map {$0 == EventReminder.none.rawValue ? EventReminder.none.rawValue : self.selectedSecondReminder}
+                .map {$0 == EventReminder.none ? EventReminder.none : self.selectedSecondReminder}
                 .assign(to: \.selectedSecondReminder, on: self)
                 .store(in: &cancellables)
             
@@ -180,9 +180,9 @@ extension EditEventView {
         func updateEvent(){
             event.title = title
             event.targetDateTime = targetDateTime
-            event.color = selectedColor
-            event.firstReminder = selectedFirstReminder
-            event.secondReminder = selectedSecondReminder
+            event.color = selectedColor.rawValue
+            event.firstReminder = selectedFirstReminder.rawValue
+            event.secondReminder = selectedSecondReminder.rawValue
             
             dataStorage.updateEvent(event: event)
             notificationService.editNotificationForEvent(event)
@@ -191,9 +191,9 @@ extension EditEventView {
         func onAppear(){
             title = event.titleValue
             targetDateTime = event.targetDateTimeValue
-            selectedColor = event.color ?? EventColor.blue.rawValue
-            selectedFirstReminder = event.firstReminderValue
-            selectedSecondReminder = event.secondReminderValue
+            selectedColor = EventColor(rawValue: event.colorValue) ?? EventColor.blue
+            selectedFirstReminder = EventReminder(rawValue: event.firstReminderValue) ?? EventReminder.none
+            selectedSecondReminder = EventReminder(rawValue: event.secondReminderValue) ?? EventReminder.none
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
         }

@@ -12,7 +12,7 @@ import CoreData
 
 protocol EventDataStorage {
     func getAllEvents() -> AnyPublisher<[EventMO], Never>
-    func addEvent(title: String, targetDateTime:Date, allDay: Bool, colorName: String, firstReminder: String, secondReminder: String) -> EventMO
+    func addEvent(title: String, targetDateTime: Date, allDay: Bool, colorName: EventColor, firstReminder: EventReminder, secondReminder: EventReminder) -> EventMO
     func deleteEvent(event: EventMO)
     func updateEvent(event: EventMO)
 }
@@ -49,15 +49,15 @@ class StorageManager: EventDataStorage  {
     func getAllEvents() -> AnyPublisher<[EventMO], Never> {
         return events.eraseToAnyPublisher()
     }
-    func addEvent(title: String, targetDateTime: Date, allDay: Bool, colorName: String, firstReminder: String, secondReminder: String) -> EventMO {
+    func addEvent(title: String, targetDateTime: Date, allDay: Bool, colorName: EventColor, firstReminder: EventReminder, secondReminder: EventReminder) -> EventMO {
         let event = EventMO(context: container.viewContext)
         event.id = UUID()
         event.title = title
         event.targetDateTime = targetDateTime
         event.allDay = allDay
-        event.color = colorName
-        event.firstReminder = firstReminder
-        event.secondReminder = secondReminder
+        event.color = colorName.rawValue
+        event.firstReminder = firstReminder.rawValue
+        event.secondReminder = secondReminder.rawValue
         event.firstReminderId = UUID()
         event.secondReminderId = UUID()
         

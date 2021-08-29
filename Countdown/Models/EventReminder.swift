@@ -8,16 +8,16 @@
 import Foundation
 
 enum EventReminder: String,CaseIterable {
-    case none = "reminder_none_text"
-    case just = "reminder_now_text"
-    case fiveMinutes = "reminder_five_minutes_text"
-    case fifthTeenMinutes = "reminder_fifthteen_minutes_text"
-    case thirtyMinutes = "reminder_thirty_minutes_text"
-    case oneHour = "reminder_one_Hour_text"
-    case oneDay = "reminder_one_Day_text"
-    case oneWeek = "reminder_one_Week_text"
-    case oneMonth = "reminder_one_Month_text"
-    case threeMonths = "reminder_three_Months_text"
+    case none
+    case just
+    case fiveMinutes
+    case fifthTeenMinutes
+    case thirtyMinutes
+    case oneHour
+    case oneDay
+    case oneWeek
+    case oneMonth
+    case threeMonths
     
     public var description: String {
         switch self {
@@ -70,17 +70,30 @@ enum EventReminder: String,CaseIterable {
         }
     }
     
-//    static func getEventReminderByName(_ name: String) -> EventReminder{
-//        return EventReminder(rawValue: name)!
-//    }
-    
-    static func allCasesAsLocalizationStringKey() -> [String]  {
-        var list = [String]()
-        for reminderCase in allCases {
-            let value = reminderCase.rawValue
-            list.append(value)
+
+    public var localizedStringKey: String {
+        switch self {
+        case .none:
+            return "reminder_none_text"
+        case .just:
+            return "reminder_now_text"
+        case .fiveMinutes:
+            return "reminder_five_minutes_text"
+        case .fifthTeenMinutes:
+            return "reminder_fifthteen_minutes_text"
+        case .thirtyMinutes:
+            return "reminder_thirty_minutes_text"
+        case .oneHour:
+            return "reminder_one_Hour_text"
+        case .oneWeek:
+            return "reminder_one_Week_text"
+        case .oneMonth:
+            return "reminder_one_Month_text"
+        case .threeMonths:
+            return "reminder_three_Months_text"
+        case .oneDay:
+            return "reminder_one_Day_text"
         }
-        return list
     }
 }
 
