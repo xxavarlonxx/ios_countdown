@@ -27,6 +27,7 @@ struct EventCardView: View {
         
         let swipeSlot = SwipeCellSlot(slots: [deleteButton], slotStyle: .destructive, buttonWidth: 80)
         
+        
         ZStack(){
             Rectangle()
                 .fill()
@@ -74,6 +75,7 @@ struct EventCardView: View {
                     }
                 }
             }.padding(.horizontal, 16.0)
+            
         }
         .background(NavigationLink(
             destination: EventDetailView(event: viewModel.event),
@@ -95,16 +97,19 @@ struct EventCardView: View {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
             return Alert(title: Text("delete_event_title"),
-                  message: Text("delete_event_text \(item.title!)"),
-                  primaryButton: .destructive(Text("delete_event_positive_answer"), action: {
-                    deleteTapped(item: item)
-                  }),
-                  secondaryButton: .cancel(Text("delete_event_negative_answer"), action: {
-                    dismissDestructiveDelayButton()
-                  }))
+                         message: Text("delete_event_text \(item.title!)"),
+                         primaryButton: .destructive(Text("delete_event_positive_answer"), action: {
+                            deleteTapped(item: item)
+                         }),
+                         secondaryButton: .cancel(Text("delete_event_negative_answer"), action: {
+                            dismissDestructiveDelayButton()
+                         }))
         }
-        
-        
+        .onAppear{
+            withAnimation {
+                viewModel.visibility = true
+            }
+        }
     }
     
     func deleteTapped(item: EventMO) {
@@ -129,6 +134,7 @@ extension EventCardView {
         @Published var eventEditSelection: EventMO?
         @Published var eventDeleteSelection: EventMO?
         @Published var eventFinishedSelection: EventMO?
+        @Published var visibility: Bool = false
         
         private var dataStorage: EventDataStorage
         private var notificsationService: NotificationService
@@ -149,7 +155,7 @@ extension EventCardView {
             })
             
         }
-
+        
         func deleteEvent(event: EventMO){
             self.dataStorage.deleteEvent(event: event)
             notificsationService.deleteNotificationForEvent(event)

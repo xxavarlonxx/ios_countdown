@@ -13,6 +13,7 @@ struct AddEventView: View {
     
     @Environment(\.presentationMode)
     var presentationMode
+    @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var theme: Theme
@@ -83,8 +84,8 @@ struct AddEventView: View {
                 
             }
             .navigationBarTitle("add_event_form_title", displayMode: .inline)
-            .navigationBarItems(leading: Button(action: {onDismiss(false)}){
-                Text("add_event_form_negative_button_title")
+            .navigationBarItems(leading: Button(action:{ onDismiss(false)}){
+                Image(systemName: "xmark").foregroundColor(colorScheme == .dark ? .white : .black).imageScale(.large)
             },
             trailing: Button(action: {onDismiss(true)}){
                 Text("add_event_form_positive_button_title")

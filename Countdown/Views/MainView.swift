@@ -13,8 +13,9 @@ struct MainView: View {
     
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var theme: Theme
+    @Environment(\.colorScheme) var colorScheme
     @StateObject var vm: ViewModel = .init()
-
+    
     
     var body: some View {
         ZStack{
@@ -29,7 +30,7 @@ struct MainView: View {
                             Image(systemName: "plus")
                                 .resizable()
                                 .frame(width: 35, height: 35)
-                                .padding(30)
+                                .padding(20)
                                 .foregroundColor(.white)
                                 .background(theme.primaryColor)
                             
@@ -37,12 +38,23 @@ struct MainView: View {
                         .clipShape(Circle())
                         .shadow(radius: 20)
                         .padding(.bottom)
+                        
                         .sheet(isPresented: $vm.showingAddModal){
                             AddEventView()
                         }
+                        .sheet(isPresented: $vm.showingAboutModal){
+                            AboutView()
+                        }
+                        
+                        
                     }
                     
-                }.navigationBarTitle(LocalizedStringKey("title_events_list"), displayMode: .large)
+                    
+                }
+                .navigationBarTitle(LocalizedStringKey("title_events_list"), displayMode: .large)
+                .navigationBarItems(trailing: Button(action:{ vm.showingAboutModal = true}){
+                    Image(systemName: "info.circle.fill").imageScale(.large).foregroundColor(colorScheme == .dark ? theme.primaryTextColor : .black)
+                })
                 
             }
             .accentColor(theme.primaryTextColor)
@@ -50,7 +62,7 @@ struct MainView: View {
             
             LoadingView(isPresented: $appState.isLoading, text: "title_loading_hud")
         }.onAppear(perform: onAppear)
-            
+        
     }
     
     func onAppear() {
@@ -76,10 +88,9 @@ struct MainView: View {
 extension MainView {
     final class ViewModel: ObservableObject {
         @Published var showingAddModal: Bool = false
+        @Published var showingAboutModal: Bool = false
         
-        func onAppear(){
-            
-        }
+        @Published var showAddButton: Bool = false
     }
 }
 

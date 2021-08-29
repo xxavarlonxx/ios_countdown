@@ -14,13 +14,13 @@ struct EventListView: View {
     @StateObject var vm: ViewModel = .init()
     @EnvironmentObject var state: AppState
     
-        
+    
     var body: some View {
-       
+        
         
         return ScrollView(.vertical, showsIndicators: false){
             LazyVStack(spacing: 12){
-                ForEach(vm.events, id: \.self){ event in
+                ForEach(vm.events, id:\.self){ event in
                     EventCardView(event: event)
                 }
             }
@@ -40,6 +40,7 @@ struct EventListView_Previews: PreviewProvider {
 extension EventListView {
     final class ViewModel: ObservableObject {
         @Published var events: [EventMO] = [EventMO]()
+        @Published var delay: Double = 0.3
         
         private var dataStorage: EventDataStorage
         private var cancellable: AnyCancellable?
